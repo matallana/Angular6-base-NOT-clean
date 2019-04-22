@@ -1,0 +1,559 @@
+<!-- Basic form layout section start -->
+
+<section id="horizontal-form-layouts">
+	<div class="row">
+        <div class="col-sm-12">
+            <div class="content-header">Registro de Eventos</div>
+            <div class="alert alert-danger" *ngIf="status=='error'">Ha ocurrido un error en el servidor de tipo:"{{errorMsg}}</div>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+	    <div class="card">
+	      <div class="card-header">
+          <h4 class="card-title" id="horz-layout-colored-controls">Panel de Creación de Eventos</h4>
+          <!--   <p class="mb-0">Los eventos creados en el panel de evento, serán convertidos en <code>fechas hábiles </code> para la <code> compra </code> de entradas del observatorio </p> -->
+        </div>
+        <div class="card-body">
+          <div class="px-3">
+
+<!--               (ngSubmit)="onSubmit(registerForm); registerForm.reset();" 
+ -->            <form class="form form-horizontal"  #registerForm="ngForm" autocomplete="off" novalidate>
+              
+              <div class="form-body">
+                <h4 class="form-section"><i class="ft-user-plus"></i> Datos de Evento Nuevo</h4>
+                <br>
+                  <!-- Primera Tabla-->
+                    <div class="row">
+                  <!-- Lugar -->
+                      <div class="col-md-5">
+                        <div class="form-group row">
+                          <label class="label-control col-md-3"  for="lugar">Lugar: </label>
+                            <div class="col-md-9">
+                              <input type="text" id="lugar" class="form-control border-primary"  name="lugar" placeholder="Las pipililas  #342"  [(ngModel)]="evento.lugar" #lugar="ngModel" minlength="2" maxlength="25" required >
+                              <span class="form-text bg-danger text-highlight white" *ngIf="lugar.errors?.required && lugar.touched">Campo es requerido </span>
+                              <span class="form-text bg-danger text-highlight white" *ngIf="lugar.errors?.minlength">Minimino 3 caracteres</span>
+                               <span class="form-text bg-danger text-highlight white" *ngIf="lugar.errors?.maxlength">Maximo de caracteres 25</span>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+
+                    <!-- apellido -->
+                    <div class="row">
+
+                    <div class="col-md-5">
+                    
+                        <div class="form-group row">
+                    
+                          <label class="label-control col-md-3" for="fechaEvento">Fecha del Evento: </label>
+                    
+                          <div class="col-md-9" *ngIf='fechalista'>
+                    
+                           
+                            <input  readonly="readonly" class="form-control border-primary" placeholder="4/19/2019" [(ngModel)]="evento.fechaevento" 
+                                    name="fechaEvento" 
+                                    #fechaEvento="ngModel"
+                                    [min]="min"
+
+                                   
+                                    [owlDateTimeFilter]="myFilter2"
+
+                                    [owlDateTimeTrigger]="dtPicker1" 
+                                    [owlDateTime]="dtPicker1">
+                            <owl-date-time  firstDayOfWeek="1" #dtPicker1 ></owl-date-time>
+
+                         <!--    [min]="min" [max]="max"
+
+                          
+                            <div *ngIf="fechaEvento.invalid && fechaEvento.errors.owlDateTimeMin">
+                                Date Time value must after {{min | date: 'medium'}}
+                              </div>
+                              <div *ngIf="fechaEvento.invalid && fechaEvento.errors.owlDateTimeMax">
+                                  Date Time value must before {{max | date: 'medium'}}
+                              </div> -->
+                          
+                              <span class="example-error" *ngIf="fechaEvento.invalid && fechaEvento.errors.owlDateTimeFilter">
+                               No puede ser ni Sabado ni Domingo, y con 5 dias de anticipacion
+                            </span>
+                    
+                           </div>
+                        </div>
+                          
+                       </div>
+                      </div>
+
+                      
+                <!-- Valor -->
+                     <!--  <div class="col-md-4">
+                        <div class="form-group row">
+                          <label class="label-control col-md-3" for="maxpersonas">Hora: </label>
+                            <div class="col-md-9">
+                              <input type="text" id="maxpersonas" class="form-control border-primary"  name="cantidad" placeholder="100 entradas"  [(ngModel)]="evento.maxpersonas" #maxpersonas="ngModel" minlength="2" maxlength="40" required >
+                              <span class="form-text bg-danger text-highlight white" *ngIf="maxpersonas.errors?.required && maxpersonas.touched">Campo es requerido </span>
+                              <span class="form-text bg-danger text-highlight white" *ngIf="maxpersonas.errors?.minlength">Minimino 3 caracteres</span>
+                              <span class="form-text bg-danger text-highlight white" *ngIf="maxpersonas.errors?.maxlength">Maximo de caracteres 25</span>
+                            </div>
+                        </div>
+                      </div> -->
+                       <!-- Valor -->
+                      
+
+
+
+                  <div class="row">
+                    <div class="col-md-5">
+                       <div class="form-group row">
+                         <label class="label-control col-md-3" for="descripcion">Descripción: </label>
+                           <div class="col-md-9">
+                             <input type="text" id="descripcion" class="form-control border-primary"  name="descripcion" placeholder="Descripción"  [(ngModel)]="evento.descripcion" #descripcion="ngModel" minlength="2" maxlength="40" required >
+                             <span class="form-text bg-danger text-highlight white" *ngIf="descripcion.errors?.required && descripcion.touched">Campo es requerido </span>
+                             <span class="form-text bg-danger text-highlight white" *ngIf="descripcion.errors?.minlength">Minimino 3 caracteres</span>
+                             <span class="form-text bg-danger text-highlight white" *ngIf="descripcion.errors?.maxlength">Maximo de caracteres 25</span>
+                           </div>
+                       </div>
+                     </div>
+                   </div>
+
+
+
+
+                  <div class="row">
+
+
+
+
+                    <!-- Cumpleaño-->
+                    <!--   <div class="col-md-4">
+                    
+                        <div class="form-group row">
+                    
+                          <label class="label-control col-md-3" for="fechaEvento">Fecha del Evento: </label>
+                    
+                          <div class="col-md-9">
+                    
+                           
+                            <input  [(ngModel)]="evento.fechaevento" 
+                                    name="fechaEvento" 
+                                    #fechaEvento="ngModel"
+                                  
+                    
+                                    [selectMode]="'range'"
+                                    [owlDateTimeTrigger]="dtPicker3" 
+                                    [owlDateTime]="dtPicker3">
+                            <owl-date-time #dtPicker3 pickerType="calendar"></owl-date-time>
+                            
+                          
+                          
+                          
+                    
+                    
+                           </div>
+                        </div>
+                          
+                    
+                      </div> -->
+                    
+                    <!--   <div class="col-md-4">
+                    
+                        <div class="form-group row">
+          
+                          <label class="label-control col-md-3" for="hora">Hora del Servicio: </label>
+                    
+                          <div class="col-md-9">
+                    
+                    <select id="generoUser" name="hora" class="form-control" #hora="ngModel" [(ngModel)]="evento.hora">
+                    
+                      <option value="none" selected="" disabled="">Seleccione su Genero</option>
+                    
+                      <option value="22:00 - 00:00">22:00 - 23:00</option>
+                    
+                      <option value="22:00 - 00:00">23:00 - 00:00</option>
+                    
+                    </select>
+ 
+                    
+                    
+                    </div>
+                    
+                    </div>
+                    
+                    
+                    </div> -->
+
+                    
+                    
+                    
+                    
+                    
+                     
+                    
+                    
+                    
+                    </div>
+
+
+                     <!--  <div *ngIf="fechaEvento.invalid && fechaEvento.errors.owlDateTimeMin">
+                              Date Time value must after {{min | date: 'medium'}}
+                            </div> -->
+                           <!--  <div *ngIf="fechaEvento.invalid && fechaEvento.errors.owlDateTimeMax">
+                                Date Time value must before {{max | date: 'medium'}}
+                            </div> -->
+                    
+                    
+                         <!--  <label>
+                              Date Time:
+                              <input [(ngModel)]="invalidMoment"
+                                     [min]="min" [max]="max"
+                                     [owlDateTimeTrigger]="dt11" [owlDateTime]="dt11"
+                                     #dateTime="ngModel">
+                              <owl-date-time #dt11></owl-date-time>
+                          </label>
+                          <div *ngIf="dateTime.invalid && dateTime.errors.owlDateTimeMin">
+                              Date Time value must after {{min | date: 'medium'}}
+                          </div>
+                          <div *ngIf="dateTime.invalid && dateTime.errors.owlDateTimeMax">
+                              Date Time value must before {{max | date: 'medium'}}
+                          </div> -->
+
+                
+
+
+<!-- Segunda fila -->
+ <h4 class="form-section"><i class="icon-book-open"></i> Datos de Personas 	</h4>
+
+
+
+
+  <!-- ------------------------- SEGUNDO ROW ----------------------------- -->
+                   <!-- Primera Tabla-->
+          <div class="row">   
+                      <!-- Lugar -->
+                  <!--       <div class="col-md-4">
+                          <div class="form-group row">
+                            <label class="label-control col-md-4"  for="personaResponsable">Persona Responsable: </label>
+                              <div class="col-md-8">
+                                <input type="text" id="personaResponsable" class="form-control border-primary"  name="personaResponsable" placeholder="Juan Perez"  [(ngModel)]="evento.responsable" #personaResponsable="ngModel" minlength="2" maxlength="25" required >
+                                <span class="form-text bg-danger text-highlight white" *ngIf="personaResponsable.errors?.required && personaResponsable.touched">Campo es requerido </span>
+                                <span class="form-text bg-danger text-highlight white" *ngIf="personaResponsable.errors?.minlength">Minimino 3 caracteres</span>
+                                 <span class="form-text bg-danger text-highlight white" *ngIf="personaResponsable.errors?.maxlength">Maximo de caracteres 25</span>
+                              </div>
+                          </div>
+                          </div> -->
+                      <!-- apellido -->
+                     <!--      <div class="col-md-4">
+                            <div class="form-group row">
+                              <label class="label-control col-md-4" for="numTelf">Numero de Teléfono: </label>
+                                <div class="col-md-8">
+                                  <input type="text" id="valor" class="form-control border-primary"  name="numTelf" placeholder="+56997923164"  [(ngModel)]="evento.numTelf" #numTelf="ngModel" minlength="2" maxlength="25" required >
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="numTelf.errors?.required && numTelf.touched">Campo es requerido </span>
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="numTelf.errors?.minlength">Minimino 3 caracteres</span>
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="numTelf.errors?.maxlength">Maximo de caracteres 25</span>
+                                </div>
+                              </div>
+                           </div> -->
+                  <!-- Valor -->
+                     <!--    <div class="col-md-4">
+                          <div class="form-group row">
+                            <label class="label-control col-md-4" for="stockArt">Cantidad de Articulos: </label>
+                              <div class="col-md-8">
+                                <input type="text" id="nick" class="form-control border-primary"  name="stockArt" placeholder="100 sillas"  [(ngModel)]="evento.stockArt" #stockArt="ngModel" minlength="2" maxlength="40" required >
+                                <span class="form-text bg-danger text-highlight white" *ngIf="stockArt.errors?.required && stockArt.touched">Campo es requerido </span>
+                                <span class="form-text bg-danger text-highlight white" *ngIf="stockArt.errors?.minlength">Minimino 3 caracteres</span>
+                                <span class="form-text bg-danger text-highlight white" *ngIf="stockArt.errors?.maxlength">Maximo de caracteres 25</span>
+                              </div>
+                          </div>
+                        </div>-->
+
+
+                      <div class="col-md-5">
+                          <div class="form-group row">
+                            <label class="label-control col-md-3" for="responsable">Responsable: </label>
+                              <div class="col-md-9">
+                                <input type="text" id="responsable" class="form-control border-primary"  name="responsable" placeholder="Mateo Vazquez"  [(ngModel)]="evento.responsable" #responsable="ngModel" minlength="2" maxlength="40" required >
+                                <span class="form-text bg-danger text-highlight white" *ngIf="responsable.errors?.required && responsable.touched">Campo es requerido </span>
+                                <span class="form-text bg-danger text-highlight white" *ngIf="responsable.errors?.minlength">Minimino 3 caracteres</span>
+                                <span class="form-text bg-danger text-highlight white" *ngIf="responsable.errors?.maxlength">Maximo de caracteres 25</span>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">   
+
+                        <div class="col-md-5">
+                            <div class="form-group row">
+                              <label class="label-control col-md-3" for="telfResponsable">Telf. Responsable: </label>
+                                <div class="col-md-9">
+                                  <input type="text" id="telfResponsable" class="form-control border-primary"  name="telfResponsable" placeholder="997923162"  [(ngModel)]="evento.telfResponsable" #telfResponsable="ngModel" minlength="2" maxlength="40" required >
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="telfResponsable.errors?.required && telfResponsable.touched">Campo es requerido </span>
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="telfResponsable.errors?.minlength">Minimino 3 caracteres</span>
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="telfResponsable.errors?.maxlength">Maximo de caracteres 25</span>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">   
+
+                          <div class="col-md-5">
+                              <div class="form-group row">
+                                <label class="label-control col-md-3" for="maxpersonas">Max. Personas: </label>
+                                  <div class="col-md-9">
+                                    <input type="text" id="maxpersonas" class="form-control border-primary"  name="cantidad" placeholder="100"  [(ngModel)]="evento.maxpersonas" #maxpersonas="ngModel" minlength="2" maxlength="40" required >
+                                    <span class="form-text bg-danger text-highlight white" *ngIf="maxpersonas.errors?.required && maxpersonas.touched">Campo es requerido </span>
+                                    <span class="form-text bg-danger text-highlight white" *ngIf="maxpersonas.errors?.minlength">Minimino 3 caracteres</span>
+                                    <span class="form-text bg-danger text-highlight white" *ngIf="maxpersonas.errors?.maxlength">Maximo de caracteres 25</span>
+                                  </div>
+                              </div>
+                            </div>
+
+  
+                    </div> 
+                    <div class="row">  
+                        <div class="col-md-5">
+                            <div class="form-group row">
+                                <label class="label-control col-md-3" for="maxpersonas">Asistencia de Alcalde</label>
+
+                                <div class="col-md-9">
+                    <mat-checkbox [(ngModel)]="evento.asistenciaAlcalde"  [ngModelOptions]="{standalone: true}" >Es necesario que asista</mat-checkbox>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                    <!-- --------- CIERRA SEGUNDO ROW ------- -->
+
+                    <!-- --------- Abre TERCER ROW ------- -->
+                   <div class="#my_canvas"></div>
+
+
+
+
+                    <h4 class="form-section"><i class="icon-book-open"></i> Información para Minuta 	</h4>
+             
+                    <div class="row">  
+                      
+                      
+            
+                        <div class="col-md-5">
+                            <div class="form-group row">
+                              <label class="label-control col-md-3" for="contextoMinuta">Contexto: </label>
+                                <div class="col-md-9" >
+                                  <textarea type="text" id="contextoMinuta" class="form-control border-primary"  name="contextoMinuta" placeholder="Contexto"  [(ngModel)]="evento.contextoMinuta" #contextoMinuta="ngModel" minlength="2" maxlength="255" required >
+                                  </textarea>
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="contextoMinuta.errors?.required && contextoMinuta.touched">Campo es requerido </span>
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="contextoMinuta.errors?.minlength">Minimino 3 caracteres</span>
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="contextoMinuta.errors?.maxlength">Maximo de caracteres 255</span>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+            
+                        <!--  ///////////////////////////////////////       ---->
+            
+            
+                        <div class="row">  
+                      
+                      
+            
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                  <label class="label-control col-md-3" for="descripcionminuta">Descripción: </label>
+                                    <div class="col-md-9" >
+                                      <textarea type="text" id="descripcionminuta" class="form-control border-primary"  name="descripcionminuta" placeholder="Descripción"  [(ngModel)]="evento.descripcionminuta" #descripcionminuta="ngModel" minlength="2" maxlength="255" required >
+                                      </textarea>
+                                      <span class="form-text bg-danger text-highlight white" *ngIf="descripcionminuta.errors?.required && descripcionminuta.touched">Campo es requerido </span>
+                                      <span class="form-text bg-danger text-highlight white" *ngIf="descripcionminuta.errors?.minlength">Minimino 3 caracteres</span>
+                                      <span class="form-text bg-danger text-highlight white" *ngIf="descripcionminuta.errors?.maxlength">Maximo de caracteres 255</span>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                
+                            <!--  ///////////////////////////////////////       ---->
+            
+            
+                            <div class="row">  
+                      
+                      
+            
+                                <div class="col-md-5">
+                                    <div class="form-group row">
+                                      <label class="label-control col-md-3" for="objetivosMinuta">Objetivos: </label>
+                                        <div class="col-md-9" >
+                                          <textarea type="text" id="objetivosMinuta" class="form-control border-primary"  name="objetivosMinuta" placeholder="Objetivos"  [(ngModel)]="evento.objetivosMinuta" #objetivosMinuta="ngModel" minlength="2" maxlength="255" required >
+                                          </textarea>
+                                          <span class="form-text bg-danger text-highlight white" *ngIf="objetivosMinuta.errors?.required && objetivosMinuta.touched">Campo es requerido </span>
+                                          <span class="form-text bg-danger text-highlight white" *ngIf="objetivosMinuta.errors?.minlength">Minimino 3 caracteres</span>
+                                          <span class="form-text bg-danger text-highlight white" *ngIf="objetivosMinuta.errors?.maxlength">Maximo de caracteres 255</span>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                    
+                                <!--  ///////////////////////////////////////       ---->
+            
+                         
+            
+                      
+
+         <h4 class="form-section"><i class="icon-book-open"></i> Información Adicional 	</h4>
+             
+        <div class="row">  
+          
+      
+                <label class="label-control col-md-3" for="maxpersonas">Recursos: </label>
+          
+                <div class="col-md-3">
+                <div>
+                    <label class="label-control col-md-9" style="color:black;" >Gráfica: </label>
+
+                </div>
+                <div *ngFor="let country of countries; let i = index;">
+                  <input type="checkbox" name="country{{country.id}}" [(ngModel)]="countries[i].checked">
+                  <label for="country{{country.id}}">{{country.name}}</label>
+                  <div *ngIf="i == 7">
+                  <ng-container *ngIf="countries[7].checked; then otrocheck">
+                   
+                  </ng-container>
+                  </div>
+              
+                
+                </div>
+                <ng-template #otrocheck>
+                <input type="text" [(ngModel)]="otrorecurso" [ngModelOptions]="{standalone: true}">  
+                 </ng-template>
+                
+<!--                 <button type="button" (click)="sendCheckedCountries()" *ngIf="countries">Click to send the selected countries (see your javascript console)</button>
+ -->                
+<!--                 <p *ngIf="!countries">loading countries, please wait a second...</p>
+                <p *ngIf="countries">Debug info : live value of the 'countries' array:</p>
+                 -->
+              <!--   <pre>{{ countries | json }}</pre> -->
+                </div>
+
+                <div class="col-md-3">
+                  <div>
+                      <label class="label-control col-md-9" style="color:black;" >Producción: </label>
+  
+                  </div>
+                  <div *ngFor="let pr of prod; let i = index;">
+                    <input type="checkbox" name="pr{{pr.id}}" [(ngModel)]="prod[i].checked">
+                    <label for="pr{{pr.id}}">{{pr.name}}</label>
+                    <div *ngIf="i == 5">
+                    <ng-container *ngIf="prod[5].checked; then otrocheckprod">
+                     
+                    </ng-container>
+                    </div>
+                
+                  
+                  </div>
+                  <ng-template #otrocheckprod>
+                  <input type="text" [(ngModel)]="otrorecursoprod" [ngModelOptions]="{standalone: true}">  
+                   </ng-template>
+                  
+  <!--                 <button type="button" (click)="sendCheckedCountries()" *ngIf="countries">Click to send the selected countries (see your javascript console)</button>
+   -->                
+  <!--                 <p *ngIf="!countries">loading countries, please wait a second...</p>
+                  <p *ngIf="countries">Debug info : live value of the 'countries' array:</p>
+                   -->
+                <!--   <pre>{{ countries | json }}</pre> -->
+                  </div>
+
+                  <div class="col-md-3">
+                    <div>
+                        <label class="label-control col-md-9" style="color:black;" >Audiovisual: </label>
+    
+                    </div>
+                    <div *ngFor="let aud of audio; let i = index;">
+                      <input type="checkbox" name="aud{{aud.id}}" [(ngModel)]="audio[i].checked">
+                      <label for="country{{aud.id}}">{{aud.name}}</label>
+                      <div *ngIf="i == 3">
+                      <ng-container *ngIf="audio[3].checked; then otrocheckaudio">
+                       
+                      </ng-container>
+                      </div>
+                  
+                    
+                    </div>
+                    <ng-template #otrocheckaudio>
+                    <input type="text" [(ngModel)]="otrorecursoaudio" [ngModelOptions]="{standalone: true}">  
+                     </ng-template>
+                    
+    <!--                 <button type="button" (click)="sendCheckedCountries()" *ngIf="countries">Click to send the selected countries (see your javascript console)</button>
+     -->                
+    <!--                 <p *ngIf="!countries">loading countries, please wait a second...</p>
+                    <p *ngIf="countries">Debug info : live value of the 'countries' array:</p>
+                     -->
+                  <!--   <pre>{{ countries | json }}</pre> -->
+                    </div>
+
+          </div>
+
+      
+
+
+</div>
+
+
+            <div class="form-actions">
+
+                <button type="button" class="btn btn-raised btn-warning mr-1" id="type-success" (click)="typeLimpiar(); registerForm.reset();">
+
+                    <i class="ft-x"></i> Limpiar Datos</button>
+
+          <button type="submit" class="btn btn-raised btn-primary" [disabled]="!registerForm.form.valid" (click)="sendCheckedCountries()" >
+
+            <i class="fa fa-check-square-o"></i> Guardar
+
+          </button>
+
+        </div>
+
+
+                    </form>
+
+
+
+                </div>
+
+            </div>
+
+            <!--  -->
+
+	         
+
+	        </div>
+
+	    </div>
+
+	</div>
+
+
+
+</section>
+
+<!-- // Basic form layout section end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

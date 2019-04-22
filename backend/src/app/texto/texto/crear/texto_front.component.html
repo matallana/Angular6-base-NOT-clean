@@ -1,0 +1,115 @@
+<!-- Basic form layout section start -->
+
+<section id="horizontal-form-layouts">
+	<div class="row">
+        <div class="col-sm-12">
+            <div class="content-header">Registro de Texto Pagina Principal</div>
+            <div class="alert alert-danger" *ngIf="status=='error'">Ha ocurrido un error en el servidor de tipo:"{{errorMsg}}</div>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+	    <div class="card">
+	      <div class="card-header">
+          <h4 class="card-title" id="horz-layout-colored-controls">Panel de Creación de Contenido Observarorio</h4>
+          <!--   <p class="mb-0">Los eventos creados en el panel de evento, serán convertidos en <code>fechas hábiles </code> para la <code> compra </code> de entradas del observatorio </p> -->
+        </div>
+        <div class="card-body">
+          <div class="px-3">
+            <form class="form form-horizontal"  #registerForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(registerForm); registerForm.reset();" novalidate>
+              
+              <div class="form-body">
+                <h4 class="form-section"><i class="ft-user-plus"></i> Registro (Requerido)</h4>
+                  <!-- Primera Tabla-->
+                    <div class="row">
+                  <!-- Lugar -->
+                      <div class="col-md-3">
+                        <div class="form-group row">
+                          <label class="col-md-3 label-control" for="lugarEvento">Lugar: </label>
+                            <div class="col-md-9">
+                              <input type="text" id="lugarEvento" class="form-control border-primary"  name="lugarEvento" placeholder="Las pipililas  #342"  [(ngModel)]="texto.name" #lugarEvento="ngModel" minlength="2" maxlength="255" required >
+                              <span class="form-text bg-danger text-highlight white" *ngIf="lugarEvento.errors?.required && lugarEvento.touched">Campo es requerido </span>
+                              <span class="form-text bg-danger text-highlight white" *ngIf="lugarEvento.errors?.minlength">Minimino 3 caracteres</span>
+                               <span class="form-text bg-danger text-highlight white" *ngIf="lugarEvento.errors?.maxlength">Maximo de caracteres 25</span>
+                            </div>
+                        </div>
+                        </div>
+                    <!-- apellido -->
+                        
+                <!-- Valor -->
+                      
+
+
+              
+ 
+  
+                  </div>
+
+
+<!-- Segunda fila -->
+
+
+
+</div>
+
+
+            <div class="form-actions">
+
+                <button type="button" class="btn btn-raised btn-warning mr-1" id="type-success" (click)="typeLimpiar(); registerForm.reset();">
+
+                    <i class="ft-x"></i> Limpiar Datos</button>
+
+          <button type="submit" class="btn btn-raised btn-primary" [disabled]="!registerForm.form.valid" >
+
+            <i class="fa fa-check-square-o"></i> Guardar
+
+          </button>
+
+        </div>
+
+
+                    </form>
+
+
+
+                </div>
+
+            </div>
+
+            <!--  -->
+
+	         
+
+	        </div>
+
+	    </div>
+
+	</div>
+
+
+
+</section>
+
+<!-- // Basic form layout section end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

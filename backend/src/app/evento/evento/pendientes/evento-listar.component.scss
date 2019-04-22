@@ -1,0 +1,78 @@
+.ng2-smart-pagination{
+    &.pagination{
+        .page-link{
+            line-height: 1rem;
+        }
+    }
+  }
+  
+  .edit{
+  margin-top: 2%;
+    font-weight: 500;
+    font-size: 25px;
+      color: #36454E !important;
+  }
+  .colortexto{
+    color: #36454E !important;
+  }
+  .bordes{
+  border-color: #6D6E70 !important;
+  border-radius: 10px;
+  }
+  .boton{
+  background-color: #D93832;
+  color:white;
+  }
+  .separador{
+  border: 1px;
+  border-bottom: 0.55px solid#36454E;
+  }
+  :host /deep/ span.ng2-smart-page-link.page-link {
+    color: white;
+    background-color: #00478f;
+    border-color: #00478f;
+  }
+  :host /deep/ ng2-smart-table-title > a { color: white; }
+
+
+
+
+:host{
+    /deep/ {
+    
+      table{
+        margin-bottom: 3%;
+    
+        tr {
+        
+            
+          td{
+            border-bottom: 0.55px solid #009DA0;
+          
+
+
+          }
+        }
+      }
+    }
+    }
+
+    :host{
+        /deep/ {
+        
+          table{
+          
+            thead{
+
+                tr:nth-child(1) {
+                    background-color: #00478f;
+                    color: white;
+    
+                }
+
+            }
+        
+            
+          }
+        }
+        }

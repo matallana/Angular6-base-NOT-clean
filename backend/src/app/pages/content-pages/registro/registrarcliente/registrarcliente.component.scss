@@ -1,0 +1,176 @@
+/*--
+	reset
+--*/ 
+/* html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{border:none;outline:0;font-weight:inherit;font-style:inherit;font-size:100%; vertical-align:baseline;text-decoration:none;margin:0;padding:0;}
+table{border-collapse:separate;border-spacing:0}
+blockquote:before,blockquote:after,q:before,q:after{content:""}
+*{margin:0;padding:0;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block; }								  
+ol, ul { list-style: none;}
+blockquote, q { quotes: none;}
+:focus { outline: 0;}
+table { border-collapse: collapse; border-spacing: 0;}
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+a{text-decoration:none; position:relative; color:#000;}
+audio,video,canvas {max-width: 100%;} */
+@import "../../../../../assetsa/front/css/reset.css";
+@import "../../../../../assetsa/front/css/style.css";
+@import "../../../../../assetsa/front/css/plugins.css";
+@import "../../../../../assetsa/front/css/invoice.css";
+@import "../../../../../assetsa/front/css/cs-style.css";
+@import "../../../../../assetsa/front/css/color.css";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@font-face {
+	font-family: GrandHotel;
+	src: url(assetsa/front/fonts/GrandHotel-Regular.otf) format("opentype");
+  }
+
+  @font-face {
+	font-family: SummerFontLight;
+	src: url(assetsa/front/fonts/SUMMERFONTLIGHT.OTF) format("opentype");
+  }
+
+
+  
+/* equal card height */
+.row-equal > div[class*='col-'] {
+    display: flex;
+    flex: 1 0 auto;
+}
+
+.row-equal .card {
+   width: 100%;
+}
+
+/* ensure equal card height inside carousel */
+.carousel-inner>.row-equal.active, 
+.carousel-inner>.row-equal.next, 
+.carousel-inner>.row-equal.prev {
+    display: flex;
+}
+
+p.basico{
+	margin: 0 0 15px;
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px; 
+	margin-inline-end: 0px;
+	color: black;
+	font-family: 'Lato', Arial, Tahoma, sans-serif!important;
+	font-size:20px;
+	text-align: left;
+}
+
+/* prevent flicker during transition */
+.carousel-inner>.row-equal.active.left, 
+.carousel-inner>.row-equal.active.right {
+    opacity: 0.5;
+    display: flex;
+}
+
+
+/* control image height */
+.card-img-top-250 {
+    max-height: 250px;
+    overflow:hidden;
+}
+
+input[type="text"].arbolname::-webkit-input-placeholder {
+	color: white; 
+	font-family: 'SummerFontLight';
+	font-size: 3em;
+	
+}
+
+
+ 
+
+.frutaspan{
+margin-top: 10%;
+transform: translate(-50%,-50%);
+position: absolute;
+font-size: 8em;
+top: 38%;
+text-transform: capitalize;
+font-weight: 500;
+
+
+}
+
+.mat-tab-label-content{
+	font-family: 'SummerFontLight', 'roboto', sans-serif;
+	font-size: 20px
+}
+
+
+
+
+#sec2 .frutaspan{
+	font-family: 'GrandHotel', 'roboto', sans-serif;
+	font-weight: 500;
+}
+
+#sec2 *{
+	font-family: 'SummerFontLight', 'roboto', sans-serif;
+	font-weight: 500;
+}
+
+
+
+
+.adoptar{
+	background: white;
+	border: 3px solid black;
+	width: 100%;
+	height: 100%;
+	font-size: 50px;
+	letter-spacing: 1px;
+		}
+
+	.controls-top{
+		z-index: 999;
+		position: absolute;
+		top: 50%;
+	}
+	
+	.btn-floatingleft{
+	
+		color: black;
+		position: absolute;
+		font-size: 50px;
+	}
+	
+	.btn-floatingright{
+	
+		left: 17.3em;
+		color: black;
+		position: absolute;
+		font-size: 50px;
+	}
+	.granja h4{
+
+		font-weight: 300!important;
+		font-family: 'GrandHotel', 'roboto', sans-serif!important;
+		font-size: 38px;
+	
+	}
+
+	.granja p{
+
+	
+	
+	}
+
+@media only screen and ( max-width: 767px ){
+
+	.frutaspan{
+		margin-top: 10%;
+		transform: unset;
+		position: unset;
+		
+		}
+
+}

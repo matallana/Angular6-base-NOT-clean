@@ -1,0 +1,836 @@
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+
+import { NgForm, FormGroup} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as alertFunction from '../../../shared/data/sweet-alerts';
+import { DateTimeAdapter } from 'ng-pick-datetime';
+import * as jsPDF from 'jspdf'
+import html2canvas from 'html2canvas';  
+import * as moment from 'moment';
+import 'moment/locale/es-us';
+
+
+
+//import {} from '../../../shared/services/evento/';
+import {EventoService} from '../../../shared/services/evento/evento.service';
+import {Eventos} from '../../../shared/models/evento/evento';
+import {UserService} from '../../../shared/services/user/user.service';
+import {EmpresaService} from '../../../shared/services/empresa/empresa.service';
+export interface Country {
+  id: number;
+  name: string;
+  checked?: boolean;
+
+}
+
+
+
+
+
+
+@Component({
+  selector: 'app-evento-crear',
+  templateUrl: './evento-form.component.html',
+  styleUrls: ['./evento-form.component.scss'],
+  providers: [UserService,  EmpresaService, EventoService]
+})
+export class EventoComponent implements OnInit {
+  @ViewChild('f') floatingLabelForm: NgForm;
+  @ViewChild('vform') validationForm: FormGroup;
+  regularForm: FormGroup;
+  public token;
+  public title: string;
+  public status: string;
+  public errorMsg;
+  public model: any = {};
+  public evento: Eventos; 
+  public user: UserService;
+  public empresa: EmpresaService;
+  tourMomentaneo:any;
+  objDate: Date
+  myDrop: any;
+  myDrop1: any;
+  public countries: Country[];
+  public prod: Country[];
+  public audio: Country[];
+
+  public option = 'none';
+  public otrochequeado = false;
+  public otrorecurso: any;
+  public otrorecursoprod: any;
+  public otrorecursoaudio: any;
+  public arrayfecha: any = [];
+
+  public arrayrecursos: any = [];
+  public conazo:any = 'lol';
+
+
+  public invalidMoment =  new Date();
+  public min;
+  public max = new Date(2050, 3, 21, 20, 30);
+  public filesToUpload;
+  fechalista:boolean = false;
+  @ViewChild('lel')  lelelement: ElementRef;
+
+
+
+   public empresaAsig : string;
+
+
+
+
+    constructor(
+        public _eventoService: EventoService, public _userService: UserService,dateTimeAdapter: DateTimeAdapter<any>
+    ) { 
+      
+        
+        this.evento = new Eventos('', '', '', '', '', this.empresaAsig, '','','','','','',false,'','','');
+        dateTimeAdapter.setLocale('es-ES');
+
+    }
+    ngOnInit() {
+
+        this.getUserIdentity();
+        console.log(this._eventoService.register);
+        var a = new Date()
+        this.recorrer(a.toISOString(),true);
+
+         /*  this.recorrer('2019-04-13',true);
+ */
+         // loading of countries, simulate some delay
+    setTimeout(() => {
+      this.countries = this.getCountries()['countries'];
+      console.log(this.countries);
+   }, 0);
+
+   setTimeout(() => {
+    this.prod = this.getProd()['prod'];
+    console.log(this.prod);
+ }, 0);
+
+ setTimeout(() => {
+  this.audio = this.getAudio()['audio'];
+  console.log(this.audio);
+}, 0);
+      
+
+
+    }
+
+
+    getCountries(){
+      var data =  {"countries":[
+        {id: 0, name: 'Afiche', checked: false},
+        {id: 1, name: 'Flyers', checked: false},
+        {id: 2, name: 'Invitaciones', checked: false},
+        {id: 3, name: 'Triptico', checked: false},
+        {id: 4, name: 'Lienzo', checked: false},
+        {id: 5, name: 'Diseño', checked: false},
+        {id: 6, name: 'Pendon', checked: false},
+        {id: 7, name: 'otro', checked: false},
+
+    ]
+    };
+    return data;
+  }
+
+  getProd(){
+    var data =  {"prod":[
+      {id: 0, name: 'Sonido', checked: false},
+      {id: 1, name: 'ILuminación', checked: false},
+      {id: 2, name: 'Data', checked: false},
+      {id: 3, name: 'Protocolo', checked: false},
+      {id: 4, name: 'Animador', checked: false},
+      {id: 5, name: 'otro', checked: false},
+
+  ]
+  };
+  return data;
+}
+
+getAudio(){
+  var data =  {"audio":[
+    {id: 0, name: 'VideoProyección', checked: false},
+    {id: 1, name: 'Material Fotográfico', checked: false},
+    {id: 2, name: 'Impresion Fotos', checked: false},
+    {id: 3, name: 'otro', checked: false},
+
+]
+};
+return data;
+}
+
+  public myFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+}
+
+
+
+    onReactiveFormSubmit() {
+        this.regularForm.reset();
+    }
+    onTemplateFormSubmit() {
+        this.floatingLabelForm.reset();
+    }
+    onCustomFormSubmit() {
+        this.validationForm.reset();
+    }
+    typeLimpiar(){
+        alertFunction.limpiarContenido();
+    }
+    typeError(){
+        alertFunction.typeErrorcl();
+    }
+    typeGuardar(){
+        alertFunction.newEventSuccess();
+    }
+    typeErrorEvento(){
+    alertFunction.typeErrorEvento();
+    }
+    typeErrorEvento2(){
+      alertFunction.typeErrorEvento2();
+    }
+
+    getUserIdentity(){
+        this.empresaAsig = this._eventoService.getIdentity().empresa;
+        this.evento.user = this._eventoService.getIdentity()._id;
+        this.token = this._eventoService.getToken();
+
+        console.log('Empresa del usuario es', this.empresaAsig);
+    }
+    aa(tour){
+      console.log(tour)
+      this._eventoService.register(tour).subscribe(response=>{
+        console.log('respondio-->',response.eventos)
+        tour = response.eventos;
+        tour.fechaevento = this.formatofechaSemanalNext(tour.fechaevento);
+        
+      });
+      
+    }
+    
+    // this function does the job of sending the selected countried out the component
+  public sendCheckedCountries(): void {
+/*     const selectedCountries = this.countries.filter( (country) => country.checked );
+ */    // you could use an EventEmitter and emit the selected values here, or send them to another API with some service
+
+/*     console.log (selectedCountries);
+
+
+ */ 
+
+
+this.evento.empresa = this.empresaAsig;
+const selectedCountries = this.countries.filter( (country) => country.checked );
+const selectedprod = this.prod.filter( (country) => country.checked );
+const selectedaudio = this.audio.filter( (country) => country.checked );
+
+
+const jsonselected = JSON.stringify(selectedCountries);
+const jsonselectedprod = JSON.stringify(selectedprod);
+const jsonselectedaudio = JSON.stringify(selectedaudio);
+
+
+const seleccionados = JSON.parse(jsonselected);
+const seleccionadosprod = JSON.parse(jsonselectedprod);
+const seleccionadosaudio = JSON.parse(jsonselectedaudio);
+
+if(seleccionados.length>0){
+  this.arrayrecursos.push('Grafica=>')
+}
+seleccionados.forEach(element => {
+  console.log(element);
+
+  if(element.name == 'otro'){
+    this.arrayrecursos.push(element.name+': '+this.otrorecurso); 
+  }else{
+  this.arrayrecursos.push(element.name); 
+}
+});
+
+if(seleccionadosprod.length>0){
+  this.arrayrecursos.push('Producción=>')
+}
+seleccionadosprod.forEach(element => {
+  console.log(element);
+
+  if(element.name == 'otro'){
+    this.arrayrecursos.push(element.name+': '+this.otrorecursoprod); 
+  }else{
+  this.arrayrecursos.push(element.name); 
+}
+});
+
+if(seleccionadosaudio.length>0){
+  this.arrayrecursos.push('Audiovisual=>')
+}
+seleccionadosaudio.forEach(element => {
+  console.log(element);
+
+  if(element.name == 'otro'){
+    this.arrayrecursos.push(element.name+': '+this.otrorecursoaudio); 
+  }else{
+  this.arrayrecursos.push(element.name); 
+}
+});
+
+if(this.arrayrecursos.length > 0){
+  this.evento.recursos = this.arrayrecursos.toString();
+}else{
+  this.evento.recursos = 'no listado';
+}
+console.log(this.evento.recursos);
+console.log(this.arrayrecursos);
+console.log(selectedCountries);
+var fechaprocesada:any = this.evento.fechaevento;
+var fechadate = new Date(fechaprocesada)
+
+
+let now = moment(fechadate).format('YYYY-MM-DDTHH:mm:ss.SSS');
+this.evento.fechaevento = now+'Z';
+console.log(now);
+
+this._eventoService.register(this.evento).subscribe(response=>{
+
+   
+           /*    if(response.length >0){ */
+                this.status = 'success';
+                this.typeGuardar();
+                console.log('lololololol');
+
+                console.log(response.eventos);
+                this.arrayrecursos = [];
+
+                  //impresion
+
+                  var pedazo:any= "<table id='contentToConvert'><tr>asadsad<tr><td>xddd</td></table>";
+                 /*  var doc = new jsPDF();
+                  (
+                    $('<table id="contentToConvert"><tr>asadsad<tr><td>xddd</td></table>'), 15, 15,
+                    {width: 170},
+                    function()
+                    {
+                        var blob = doc.output('blob');
+            
+                        var formData = new FormData();
+                        formData.append('pdf', blob);
+                        doc.save('hola.pdf')
+            
+                        $.ajax('/upload.php',
+                        {
+                            method: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(data){console.log(data)},
+                            error: function(data){console.log(data)}
+                        });
+                    }
+                ); */
+
+                  var iframe:any=document.createElement('iframe');
+                  $('body').append($(iframe));
+                  $('iframe').attr('id', 'lel');
+
+                  var lugar = response.eventos.lugar;
+                  var fecha = response.eventos.fechaevento;
+                  var maxpersonas = response.eventos.maxpersonas;
+                  var responsable = response.eventos.responsable;
+                  var telfresponsable = response.eventos.telfResponsable;
+                  var descripcionminuta = response.eventos.descripcionMinuta;
+                  var contextominuta = response.eventos.contextoMinuta;
+                  var objetivosminuta = response.eventos.objetivosMinuta;
+
+                  
+
+                  
+              
+                      var iframedoc=iframe.contentDocument||iframe.contentWindow.document;
+                      $('body',$(iframedoc)).html(`
+                      <div style="word-break: break-all; width:310px;margin-top:40px;margin-left:40px;">
+                   
+                      <div style="font-size:10px;text-align:left;">Minuta</div>
+                      <br>
+                      <br>
+                      <div style="font-size:9px;">Lugar: `+lugar+`</div>
+                      <div style="font-size:9px;">Fecha: `+fecha+`</div>
+                      <div style="font-size:10px;">Participantes: `+maxpersonas+`</div>
+                      <div style="font-size:10px;">Responsable: `+responsable+`</div>
+                      <div style="font-size:10px;">Fono. Responsable: `+telfresponsable+`</div>
+                      <div style="font-size:10px;">Descripcion: <br>`+descripcionminuta+`</div>
+                      <div style="font-size:10px;">Contexto: <br>`+contextominuta+`</div>
+                      <div style="font-size:10px;">Objetivos: <br>`+objetivosminuta+`</div>
+
+                      </div>
+
+
+                      
+                      
+                      `);
+                      html2canvas(iframedoc.body, {
+                        scale: "5"
+                      }).then(canvas => {  
+                        // Few necessary setting options  
+                        var imgWidth = 120;   
+                        var pageHeight = 800;   
+                        var imgHeight = canvas.height * imgWidth / canvas.width;  
+                        var heightLeft = imgHeight;  
+                    
+                        const contentDataURL = canvas.toDataURL('image/png')  
+                         let pdf = new jsPDF(  );  // A4 size page of PDF  
+/*                         var pdf = new jsPDF('l', 'in', 'a4');
+ */                     pdf.internal.scaleFactor = 1.33;
+                        var altopagina = pageHeight= pdf.internal.pageSize.height; 
+
+                        var position = 0;
+                        
+                        pdf.addImage(contentDataURL, 'PNG', 0,0, position, imgWidth, 800);
+                        heightLeft -= pageHeight;
+                        
+
+                       /*  while (heightLeft >= 0) {
+                          position = heightLeft - imgHeight;
+                          pdf.addPage();
+                          pdf.addImage(contentDataURL, 'PNG', 0, 30, imgWidth, imgHeight);
+                          heightLeft -= pageHeight;
+                          }  */
+                        pdf.save(response.eventos._id+'.pdf'); // Generated PDF  
+                        var base64pdf = btoa(pdf.output());
+                        var jsonfinal: any= {};
+                        jsonfinal.base64pdf = base64pdf;
+/*                         console.log(base64pdf);
+ */
+                        this._eventoService.registerPDF(response.eventos._id, jsonfinal).subscribe(result=>{
+
+                          
+
+                         /*  var iframes = $("#lel", parent.document.body);                           ;
+                          for (var i = 0; i < iframes.length; i++) {
+                              iframes[i].parentNode.removeChild(iframes[i]);
+                               } 
+                                */
+
+/*                           $('body').remove($(iframe));
+ */                          
+                        /* setTimeout(function(){
+                          $("#lel").remove();
+
+                        }, 10); */
+
+/*                         $("#myid", parent.document.body); 
+ */
+
+                          
+                          console.log(result);
+                        /*   this.user.image = result.image;
+                          this.imagen  = result.image;
+                          localStorage.setItem('identity',JSON.stringify(this.user)); */
+      
+                        });
+
+
+                      }); 
+
+
+                      setTimeout(function(){
+
+                        function $(el) {
+                          return document.getElementById(el);
+                      }
+                      
+                      function removeit() {
+                          var child = $('lel');
+                          child.remove();
+                          
+                          
+                      }
+                      removeit();
+
+                      
+
+                       }, 200); 
+
+
+
+
+                  
+
+                   
+
+
+
+                  /* var pageWidth = 8.5,
+                  lineHeight = 1.2,
+                  margin = 0.5,
+                  maxLineWidth = pageWidth - margin * 2,
+                  fontSize = 24,
+                  ptsPerInch = 72,
+                  oneLineHeight = fontSize * lineHeight / ptsPerInch,
+                  text = '<a href="www.google.com"> hola </a><table><tr>asadsad<tr><td>xddd</td></table> '+JSON.stringify(response)+' Two households, both alike in dignity,\n' +
+                    'In fair Verona, where we lay our scene,\n' +
+                    'From ancient grudge break to new mutiny,\n' +
+                    'Where civil blood makes civil hands unclean.\n' +
+                    'From forth the fatal loins of these two foes\n' +
+                    'A pair of star-cross\'d lovers take their life;\n' +
+                    'Whole misadventured piteous overthrows\n' +
+                    'Do with their death bury their parents\' strife.\n' +
+                    'The fearful passage of their death-mark\'d love,\n' +
+                    'And the continuance of their parents\' rage,\n' +
+                    // Notice that the following will be wrapped to two lines automatically!
+                    'Which, but their children\'s end, nought could remove, Is now the two hours\' traffic of our stage;\n' +
+                    'The which if you with patient ears attend,\n' +
+                    'What here shall miss, our toil shall strive to mend.',
+                  doc = new jsPDF({
+                    unit: 'in',
+                    lineHeight: lineHeight
+                  }).setProperties({ title: 'String Splitting' });
+                  
+                  // splitTextToSize takes your string and turns it in to an array of strings,
+                  // each of which can be displayed within the specified maxLineWidth.
+                  var textLines = doc
+                  .setFont('helvetica', 'neue')
+                  .setFontSize(fontSize)
+                  .splitTextToSize(text, maxLineWidth);
+                  
+                  // doc.text can now add those lines easily; otherwise, it would have run text off the screen!
+                  doc.text(textLines, margin, margin + 2 * oneLineHeight);
+                  
+                  // You can also calculate the height of the text very simply:
+                  var textHeight = textLines.length * fontSize * lineHeight / ptsPerInch;
+                  doc
+                  .setFontStyle('bold')
+                  .text('Text Height: ' + textHeight + ' inches', margin, margin + oneLineHeight); 
+                                    pdf.save('two-by-four.pdf');
+                    */
+
+
+
+
+
+                  //--
+
+
+
+
+
+                  this.evento = new Eventos('', '', '', '', '', this.empresaAsig, '','','','','','',false,'','','');
+
+  
+
+});
+
+
+console.log('lololololol');
+
+
+
+
+
+
+}
+
+funcionsadica(){
+
+  var x = document.getElementById("lel");
+  this.lelelement.nativeElement.remove();
+}
+
+otrocheck(otro){
+  if(otro = 'checked'){
+      return this.otrochequeado = true;
+  }else{
+    return this.otrochequeado = false;
+  }
+}
+
+
+recorrer(fecha, avanzar){
+
+  if(avanzar){
+    fecha = this.formatofechaSemanalNext(fecha);
+    let dia = this.diaEnpalabra(fecha);
+    console.log(dia,fecha);
+    if(dia === 'Domingo' || dia === 'Sábado'){
+      this.recorrer(fecha,true)
+    }else{
+      this.arrayfecha.push(fecha);
+      if(this.arrayfecha.length == 3){
+        console.log(Number(this.arrayfecha[2].substring(0,4)),Number(this.arrayfecha[2].substring(5,7)),Number(this.arrayfecha[2].substring(8,10)))
+        this.min = new Date(Number(this.arrayfecha[2].substring(0,4)),Number(this.arrayfecha[2].substring(5,7))-1,Number(this.arrayfecha[2].substring(8,10)));
+        this.fechalista = true;
+      }else{
+        this.recorrer(fecha,true)
+      }
+      
+    }
+   
+
+  }
+}
+
+public captureScreen()  
+  {  
+   /*
+ * Let's demonstrate string splitting with the first page of Shakespeare's Romeo and Juliet!
+ * We'll use a 8.5 x 11 inch sheet, measuring everything in inches.
+ */
+var pageWidth = 8.5,
+lineHeight = 1.2,
+margin = 0.5,
+maxLineWidth = pageWidth - margin * 2,
+fontSize = 24,
+ptsPerInch = 72,
+oneLineHeight = fontSize * lineHeight / ptsPerInch,
+text = '<a href="www.google.com"> hola </a> '+this.conazo+' Two households, both alike in dignity,\n' +
+  'In fair Verona, where we lay our scene,\n' +
+  'From ancient grudge break to new mutiny,\n' +
+  'Where civil blood makes civil hands unclean.\n' +
+  'From forth the fatal loins of these two foes\n' +
+  'A pair of star-cross\'d lovers take their life;\n' +
+  'Whole misadventured piteous overthrows\n' +
+  'Do with their death bury their parents\' strife.\n' +
+  'The fearful passage of their death-mark\'d love,\n' +
+  'And the continuance of their parents\' rage,\n' +
+  // Notice that the following will be wrapped to two lines automatically!
+  'Which, but their children\'s end, nought could remove, Is now the two hours\' traffic of our stage;\n' +
+  'The which if you with patient ears attend,\n' +
+  'What here shall miss, our toil shall strive to mend.',
+doc = new jsPDF({
+  unit: 'in',
+  lineHeight: lineHeight
+}).setProperties({ title: 'String Splitting' });
+
+// splitTextToSize takes your string and turns it in to an array of strings,
+// each of which can be displayed within the specified maxLineWidth.
+var textLines = doc
+.setFont('helvetica', 'neue')
+.setFontSize(fontSize)
+.splitTextToSize(text, maxLineWidth);
+
+// doc.text can now add those lines easily; otherwise, it would have run text off the screen!
+doc.text(textLines, margin, margin + 2 * oneLineHeight);
+
+// You can also calculate the height of the text very simply:
+var textHeight = textLines.length * fontSize * lineHeight / ptsPerInch;
+doc
+.setFontStyle('bold')
+.text('Text Height: ' + textHeight + ' inches', margin, margin + oneLineHeight);
+doc.save('two-by-four.pdf');
+
+  }  
+
+
+   /*  onSubmit(form){
+      
+        this.evento.empresa = this.empresaAsig;
+        const selectedCountries = this.countries.filter( (country) => country.checked );
+        this.evento.recursos = selectedCountries.toString();
+
+        this._eventoService.register(this.evento).subscribe(response=>{
+        
+           
+                   /*    if(response.length >0){ */
+                      /*   this.status = 'success';
+                        this.typeGuardar();
+                        console.log('lololololol');
+
+                        console.log(response);
+                        this.evento = new Eventos('', '', '', '', this.empresaAsig, '','','','','','','');  */
+/*                         alert(response);
+ */                    /*   }else{
+                        this.status = 'error';
+                        this.typeErrorEvento();
+                        console.log(response);
+
+                        this.evento = new Eventos('', '', '', '', this.empresaAsig, '','','','','',''); */
+                        // this.errorMsg = '500';  
+                /*       } */
+          
+/* 
+        });
+        console.log('lololololol');
+
+       
+
+
+
+
+
+    } */
+
+    
+    
+
+    
+
+     // avanza a la fecha siguiente y retorna fecha
+     formatofechaSemanalNext(fechahoy){
+        let dia_actual = Number(fechahoy.substring(8,10));
+        dia_actual = dia_actual + 1;
+        let mes_actual = Number(fechahoy.substring(5,7));
+        let agno_actual = Number(fechahoy.substring(0,4));
+        let diasMes = this.diasMes(mes_actual,agno_actual);
+        if(dia_actual == 29 && diasMes == 28){
+          dia_actual = 1;
+          mes_actual = 3;
+        }else{
+          if(dia_actual == 30 && diasMes == 29){
+            dia_actual = 1;
+            mes_actual = 3;
+          }else{
+            if(dia_actual == 31 && diasMes == 30){
+              dia_actual = 1;
+              mes_actual = mes_actual +1;
+            }else{
+              if(dia_actual == 32 && diasMes == 31){
+                dia_actual = 1;
+                if(mes_actual == 12){
+                  mes_actual = 1
+                  agno_actual = agno_actual + 1;
+                }else{
+                  mes_actual = mes_actual + 1;
+                }
+              }
+            }
+          }
+        }
+        let fechaHoy ;
+        if(dia_actual.toString().length == 1){
+         if(mes_actual.toString().length == 1){
+           fechaHoy = agno_actual+"-0"+mes_actual+"-"+"0"+dia_actual;
+         }else{
+           fechaHoy = agno_actual+"-"+mes_actual+"-"+"0"+dia_actual;
+         }
+       }else{
+         if(mes_actual.toString().length == 1){
+           fechaHoy = agno_actual+"-0"+mes_actual+"-"+dia_actual;
+         }else{
+           fechaHoy = agno_actual+"-"+mes_actual+"-"+dia_actual;
+         }
+       }
+      return fechaHoy;
+      }
+
+
+    restaFechas(f1,f2){
+        var aFecha1 = f1.split('-');
+        var aFecha2 = f2.split('-');
+        var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]);
+        var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]);
+        var dif = fFecha2 - fFecha1;
+        var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+        return dias;
+        }
+
+        diasMes(mes:number,agno:number){
+            var dias:number = 0;
+            if(mes == 1){
+              dias = 31;
+            }else{
+              if(mes == 2){
+                if((agno%4) == 0){
+                  dias =29;
+                }else{
+                  dias=28;
+                }
+              }else{
+                if(mes == 3){
+                  dias=31;
+                }else{
+                  if(mes == 4){
+                    dias = 30;
+                  }else{
+                    if(mes == 5){
+                      dias = 31;
+                    }else{
+                      if(mes == 6){
+                        dias = 30;
+                      }else{
+                        if(mes == 7){
+                          dias = 31;
+                        }else{
+                          if(mes ==8){
+                            dias = 31;
+                          }else{
+                            if(mes == 9){
+                              dias = 30 ;
+                            }else{
+                              if(mes == 10){
+                                dias = 31;
+                              }else{
+                                if(mes == 11){
+                                  dias = 30;
+                                }else{
+                                  if(mes == 12){
+                                    dias = 31;
+                                  }else{
+                                    if(mes == 0){
+                                      dias = 31;
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            return dias;
+          }
+
+   /*  formatearfechas(dia,mes,agno){
+        var fecha;
+       if(dia.toString().length == 1){
+         if(mes.toString().length == 1){
+           fecha = "0"+dia+"-0"+mes+"-"+agno;
+         }else{
+           fecha = "0"+dia+"-"+mes+"-"+agno;
+         }
+       }else{
+         if(mes.toString().length == 1){
+           fecha = dia+"-0"+mes+"-"+agno;
+         }else{
+           fecha = dia+"-"+mes+"-"+agno;
+         }
+       }
+       return fecha;
+   
+   
+      } */
+
+      diaEnpalabra(fecha){
+        let diaPalabra:string;
+         let arreglo:string [] = [ "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" ];
+         let mes1:number = parseInt(fecha.substring(5,7));
+         let año1:number =parseInt(fecha.substring(0,4));
+         let dia1:number = parseInt(fecha.substring(8,10));
+         var a:number = (14 - mes1) / 12;
+         a =parseInt(a.toString());
+        //  console.log(a);
+          var y:number = (año1 - a);
+          y = parseInt(y.toString());
+         // console.log(y);
+          var m:number = mes1 + 12 * a - 2;
+          m = parseInt(m.toString());
+          //console.log(m);
+          var d:number = (dia1 + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12) % 7;
+          d =parseInt(d.toString());
+          diaPalabra = arreglo[d];
+          return diaPalabra;
+        }
+  
+  
+  
+
+
+
+
+  
+}

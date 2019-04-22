@@ -1,0 +1,548 @@
+<!DOCTYPE HTML>
+<html lang="en">
+     <!-- header-->
+    <app-header-pr-page></app-header-pr-page>
+  
+     <!--  header end -->
+        <body style="background: #ffff">
+        <div id="main">
+            
+            <!--  wrapper  -->
+            <div id="wrapper" style="padding-top:0px;">
+                <!-- content-->
+                <div class="content">
+
+                    <!--section -->
+                    <section class="hero-section" data-scrollax-parent="true" id="sec1" style="padding: 200px 0!important">
+                        <div class="hero-parallax">
+                            <div class="bg"  data-bg="1.jpg" data-scrollax="properties: { translateY: '200px' }"></div>
+                            <div class="overlay op7"></div>
+                            <div class="videoDiv bg">
+                              
+                                    <iframe id="player" allowfullscreen="1" title="YouTube video player" src="https://www.youtube.com/embed/mpd1iLFCn8A?controls=0;autoplay=1;loop=1;playlist=mpd1iLFCn8A" frameborder="0" allow="accelerometer;loop; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen  style="transform: translate(0px, -30%);" class="playing" width="100%" height="1080" frameborder="0"></iframe>
+                                    <div class="playPause"></div>
+                                    <div class="videoGradient"></div>
+                                    <div class="w-100 h-100 flex-center d-none d-sm-flex">
+                                      <div class="scrollCircle flex-center">
+                                        <div class="chevron"></div>
+                                        <div class="chevron"></div>
+                                        <div class="chevron"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+
+
+
+                        </div>
+                        <div class="hero-section-wrap fl-wrap">
+                            <div class="container">
+                                <div class="home-intro">
+                                    <div class="section-title-separator"><span></span></div>
+                                    <h2 style="font-size:62px;background-color:#212121">La Granjeria</h2>
+                                    <span class="section-separator"></span>                                    
+                                    <h3>Tu Granja Virtual</h3>
+                                </div>
+                                
+                            </div>
+                        </div>
+                       <!--  <div class="header-sec-link">
+                            <div class="container"><a href="#sec2" class="custom-scroll-link color-bg"><i class="fal fa-angle-double-down"></i></a></div>
+                        </div> -->
+                    </section>
+
+<!-- Basic form layout section start -->
+
+<section id="horizontal-form-layouts">
+
+	<div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="content-header">Registra y forma parte de nosotros!</div>
+
+        </div>
+
+    </div>
+
+	<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+
+            <div class="col-md-12">
+        
+                  <div class="card">
+        
+                      <div class="card-header">
+        
+                          <h4 class="card-title" id="horz-layout-colored-controls">Panel de Registro</h4>
+        
+        
+                      </div>
+        
+                      <div class="card-body">
+        
+                          <div class="px-3">
+        
+                      <form class="form form-horizontal"  #registerForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(registerForm); registerForm.reset();" novalidate>
+        
+                                <div class="form-body">
+        
+                        <h4 class="form-section"><i class="ft-user-plus"></i> Rellena con datos reales para evitar confusiones.</h4>
+        
+                        <!-- Primera Tabla-->
+        
+                                  <div class="row">
+        
+                          <!-- nombre -->
+        
+                                    <div class="col-md-3">
+        
+                                        <div class="form-group row">
+        
+                                          <label class="col-md-3 label-control" for="name">Nombre: </label>
+        
+                                          <div class="col-md-9">
+        
+                                                        <input type="text" id="name" class="form-control border-primary"  name="name" placeholder="Nombre ejemplo: ronnel"  [(ngModel)]="user.name" #name="ngModel" minlength="2" maxlength="25" required >
+        
+                                <span class="form-text bg-danger text-highlight white" *ngIf="name.errors?.required && name.touched">Campo es requerido </span>
+        
+                                <span class="form-text bg-danger text-highlight white" *ngIf="name.errors?.minlength">Minimino 3 caracteres</span>
+        
+                                <span class="form-text bg-danger text-highlight white" *ngIf="name.errors?.maxlength">Maximo de caracteres 25</span>
+        
+                                            </div>
+        
+                                        </div>
+        
+                          </div>
+        
+                          <!-- apellido -->
+        
+                                    <div class="col-md-3">
+        
+                                        <div class="form-group row">
+        
+                                          <label class="col-md-3 label-control" for="surname">Apellido: </label>
+        
+                                          <div class="col-md-9">
+        
+                                  <input type="text" id="surname" class="form-control border-primary"  name="surname" placeholder="Nombre ejemplo: matallana"  [(ngModel)]="user.surname" #surname="ngModel" minlength="2" maxlength="25" required >
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="surname.errors?.required && surname.touched">Campo es requerido </span>
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="surname.errors?.minlength">Minimino 3 caracteres</span>
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="surname.errors?.maxlength">Maximo de caracteres 25</span>
+        
+                                          </div>
+        
+                                        </div>
+        
+                          </div>
+        
+                          <!-- Nick -->
+        
+                          <div class="col-md-3">
+        
+                            <div class="form-group row">
+        
+                              <label class="col-md-3 label-control" for="nick">Nick: </label>
+        
+                              <div class="col-md-9">
+        
+                                  <input type="text" id="nick" class="form-control border-primary"  name="nick" placeholder="Nombre ejemplo: r.matallana"  [(ngModel)]="user.nick" #nick="ngModel" minlength="2" maxlength="40" required >
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="nick.errors?.required && nick.touched">Campo es requerido </span>
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="nick.errors?.minlength">Minimino 3 caracteres</span>
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="nick.errors?.maxlength">Maximo de caracteres 25</span>
+        
+                              </div>
+        
+                            </div>
+        
+                          </div>
+        
+                        </div>
+        
+                        <!-- Fin Primera Tabla-->
+        
+        
+        
+                        <!-- Segunda Tabla-->
+        
+                                  <div class="row">
+        
+                          <!-- Email -->
+        
+                                    <div class="col-md-3">
+        
+                                        <div class="form-group row">
+        
+                                          <label class="col-md-3 label-control" for="email">Email: </label>
+        
+                                          <div class="col-md-9">
+        
+                                  <input type="email" id="email" class="form-control border-primary"  name="email" placeholder="Nombre ejemplo: ronnel@brechadigital.cl"  [(ngModel)]="user.email" #email="ngModel" minlength="2" maxlength="50" required >
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="email.errors?.required && email.touched">Campo es requerido </span>
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="email.errors?.minlength">Minimino 3 caracteres</span>
+        
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="email.errors?.maxlength">Maximo de caracteres 50</span>
+        
+                                          </div>
+        
+                                        </div>
+        
+                          </div>
+        
+                          <!-- Clave -->
+        
+                                    <div class="col-md-3">
+        
+                                        <div class="form-group row">
+        
+                                          <label class="col-md-3 label-control" for="password">Clave: </label>
+          
+                                <div class="col-md-9">
+          
+                                    <input type="password" id="clave" class="form-control border-primary"  name="password" placeholder="contraseña"  [(ngModel)]="user.password" #password="ngModel" minlength="2" maxlength="50" required >
+          
+                                    <span class="form-text bg-danger text-highlight white" *ngIf="password.errors?.required && password.touched">Campo es requerido </span>
+          
+                                    <span class="form-text bg-danger text-highlight white" *ngIf="password.errors?.minlength">Minimino 3 caracteres</span>
+          
+                                    <span class="form-text bg-danger text-highlight white" *ngIf="password.errors?.maxlength">Maximo de caracteres 50</span>
+          
+                                </div>
+        
+                                        </div>
+        
+                          </div>
+        
+                          <!-- Pais -->
+        
+                          <!-- <div class="col-md-3">
+        
+                                        <div class="form-group row">
+        
+                              <label class="col-md-3 label-control" for="empresa">Empresa: </label>
+          
+                              <div class="col-md-9">
+        
+                                <div class="form-group">
+                                  <select class="form-control" id="empresa" name="empresa" #empresa="ngModel" [(ngModel)]="user.empresa">
+                                    <option *ngFor="let empresa of arrayEmp" value={{empresa._id}}> {{empresa.name}}</option>
+                                  </select>
+                                  </div> 
+                                  
+        
+                              </div>
+        
+        
+                                        </div>
+        
+                          </div> -->
+        
+                        
+        
+                        </div>
+        
+                        <!-- Fin Segunda Tabla-->
+        
+        
+        
+        
+                        <!-- Tercera Tabla-->
+        
+                                  <div class="row">
+        
+                          <!-- Rol -->
+        
+                                 <!--    <div class="col-md-3">
+        
+                                        <div class="form-group row">
+        
+                              <label class="col-md-3 label-control" for="rol">Rol: </label>
+        
+                                          <div class="col-md-9">
+        
+                                <div class="form-group">
+                                  <select class="form-control" id="rolname" name="rolname" #rolname="ngModel" [(ngModel)]="user.rol">
+                                    <option *ngFor="let rol of arrayRol" value={{rol._id}}> {{rol.name}}</option>
+                                  </select>
+                                  </div> 
+                                  
+        
+                                          </div>
+        
+                                        </div>
+        
+                                    </div> -->
+        
+                          <!-- Pais -->
+        
+                                  <!--   <div class="col-md-3">
+        
+                                        <div class="form-group row">
+        
+                              <label class="col-md-3 label-control" for="pais">Pais: </label>
+          
+                              <div class="col-md-9">
+        
+                                <div class="form-group">
+                                  <select class="form-control" id="pais" name="pais" #pais="ngModel" [(ngModel)]="user.pais">
+                                    <option *ngFor="let pais of arrayPai" value={{pais._id}}> {{pais.name}}</option>
+                                  </select>
+                                  </div> 
+                                  
+        
+                              </div>
+        
+        
+                                        </div>
+        
+                          </div> -->
+        
+                          <!-- Nick -->
+        
+                          <!-- <div class="col-md-3">
+        
+                            <div class="form-group row">
+        
+                              <label class="col-md-3 label-control" for="ocupation">Profesion: </label>
+        
+                                  <div class="col-md-9">
+        
+                                <div class="form-group">
+                                  <select class="form-control" id="ocupation" name="ocupation" #ocupation="ngModel" [(ngModel)]="user.ocupation">
+                                    <option *ngFor="let ocupation of arrayProf" value={{ocupation._id}}> {{ocupation.name}}</option>
+                                  </select>
+                                  </div> 
+                                  
+        
+                                          </div>
+                            </div>
+        
+                          </div> -->
+        
+                        </div>
+        
+                        <!-- Fin Primera Tabla-->
+        
+                          
+                        
+        
+                        
+        
+        
+                        
+        
+                        <!-- Tercera Tabla-->
+                                    <div class="row">
+                            <!-- Email --> 
+          
+                               <div class="col-md-3">
+          
+                              <div class="form-group row">
+          
+                                
+          
+                              </div>
+          
+                            </div>
+                            
+                            
+                            <!-- Fin Tercera Tabla-->
+                            
+                            
+                          </div>
+                          
+                          <!-- Fin Primer Head-->
+        
+                          
+                          
+        
+        
+        
+        
+        
+        
+        
+        
+                        
+        
+        
+        
+<!--                                     <h4 class="form-section"><i class="icon-book-open"></i> Informacion Adicional 	</h4>
+ -->        
+        
+        
+                                    <div class="row">
+        
+                          <!-- primera fila 2-->
+                          <!-- Cumpleaño-->
+                                      <div class="col-md-3">
+        
+                                        <!-- <div class="form-group row">
+        
+                                          <label class="col-md-4 label-control" for="birthdayUsuario">Cumpleaño: </label>
+        
+                                          <div class="col-md-4">
+        
+                                <input type="date" id="birthdayUsuario" class="form-control" name="birthdayUsuario" #birthdayUsuario="ngModel" [(ngModel)]="user.birthday">
+        
+                                          </div>
+        
+                                      </div> -->
+        
+        
+        
+                                      <div class="form-group row">
+        
+                                         <!--  <label class="col-md-4 label-control" for="generoUser">Genero: </label>
+        
+                                          <div class="col-md-4">
+        
+                                  <select id="generoUser" name="generoUser" class="form-control" #generoUser="ngModel" [(ngModel)]="user.genero">
+        
+                                      <option value="none" selected="" disabled="">Seleccione su Genero</option>
+                
+                                      <option value="hombre">Hombre</option>
+                
+                                      <option value="mujer">Mujer</option>
+                
+                                    </select>
+        
+                              </div> -->
+        
+                            </div>
+        
+        
+        
+                            <!-- <div class="form-group row">
+        
+                                          <label class="col-md-4 label-control" for="website">Sitio Web: </label>
+        
+                                          <div class="col-md-6">
+        
+                                  <input type="text" id="website"  class="form-control" placeholder="www.brechadigital.cl" name="website" #website="ngModel" [(ngModel)]="user.website" maxlength="50" minlength="3">
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="website.errors?.minlength">Minimino 3 caracteres</span>
+                                  <span class="form-text bg-danger text-highlight white" *ngIf="website.errors?.maxlength">Maximo de caracteres 25</span>
+        
+                              </div>
+        
+                            </div> -->
+                            
+                            <div class="form-group row">
+        
+                              <!--   <label class="col-md-4 label-control" for="phoneNumber">Telefono: </label>
+          
+                                <div class="col-md-5">
+          
+                                    <input type="text" id="phoneNumber"  class="form-control" placeholder="+56912345678" name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="user.phoneNumber" maxlength="13" minlength="3">
+                                    <span class="form-text bg-danger text-highlight white" *ngIf="phoneNumber.errors?.minlength">Minimino 3 caracteres</span>
+                                    <span class="form-text bg-danger text-highlight white" *ngIf="phoneNumber.errors?.maxlength">Maximo de caracteres 25</span>
+          
+                                </div> -->
+          
+                              </div>
+        
+                                      </div>
+        
+                                   <!--    <div class="col-md-6">
+        
+                                        <div class="form-group row">
+        
+                                          <label class="col-md-3 label-control" for="userinput8">About: </label>
+        
+                                          <div class="col-md-9">
+        
+                                              <textarea id="userinput8" rows="6" class="form-control col-md-9 border-primary" name="bio" ></textarea>
+        
+                                 </div>
+                                 
+                                 
+        
+                            </div>
+                            
+        
+                          </div> -->
+                          
+                          
+        
+                                    </div>
+        
+                      </div>
+        
+        
+                      <div class="form-actions">
+        
+                          <button type="button" class="btn btn-raised btn-warning mr-1" id="type-success" (click)="typeLimpiar(); registerForm.reset();">
+        
+                              <i class="ft-x"></i> Limpiar Datos</button>
+        
+                    <button type="submit" class="btn btn-raised btn-primary" [disabled]="!registerForm.form.valid" >
+        
+                      <i class="fa fa-check-square-o"></i> Guardar
+        
+                    </button>
+        
+                  </div>
+        
+        
+                              </form>
+        
+        
+        
+                          </div>
+        
+                      </div>
+        
+                  </div>
+        
+              </div>
+        
+          </div>
+
+    </div>
+
+  </div>
+
+
+  
+  
+  
+  
+  </section>
+	
+
+<!-- // Basic form layout section end -->
+
+</div>
+<!-- content end-->
+</div>
+<!--wrapper end -->
+<!--footer -->
+<div class="column mcb-column one column_image ">
+    <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+       <div class="image_wrapper">
+            <img class="scale-with-grid" src="https://www.lagranjeria.cl/wp-content/uploads/2018/08/img_footer.png" alt="" title="">
+       </div>
+    </div>  
+ </div>
+<app-footer-pr-page></app-footer-pr-page>
+<!--footer end -->
+
+<a class="to-top"><i class="fas fa-caret-up"></i></a>
+</div>
+<!-- Main end -->
+<!--=============== scripts  ===============-->
+
+
+</body>

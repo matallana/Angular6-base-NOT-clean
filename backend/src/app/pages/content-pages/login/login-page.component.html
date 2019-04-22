@@ -1,0 +1,74 @@
+<!--Login Page Starts-->
+<section id="login">
+    <div class="container-fluid">
+        <div class="row full-height-vh">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="card gradient-indigo-blue text-center width-400" style="background-image: linear-gradient(45deg,  #00478f, rgb(16, 76, 136));">
+                    <div class="card-img overlap">
+<!--                         <img alt="element 06" class="mb-1" src="assets/img/portrait/avatars/avatar-08.png" width="190">
+ -->                        <img alt="element 06" class="mb-1" src="assets/img/portrait/avatars/logolagranja.jpg" style="-webkit-box-shadow: 10px -5px 28px -13px rgba(0,0,0,0.75);-moz-box-shadow: 10px -5px 28px -13px rgba(0,0,0,0.75);box-shadow: 10px -5px 28px -13px rgba(0,0,0,0.75);">
+
+                    </div>
+                    <div class="card-body">
+                        <div class="card-block">
+                            <h2 class="white">Conectarse</h2>
+                            <div class="alert alert-success" *ngIf="status=='success'">Login Correcto</div>
+                            <div class="alert alert-danger" *ngIf="status=='error'">No te has identificado correctamente</div>
+                            <form #loginForm="ngForm" (ngSubmit)="onSubmit();"> 
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="email" id="mail"  class="form-control" placeholder="email" 
+                                        name="mail" #mail="ngModel" 
+                                        [(ngModel)]="user.email"   
+                                        required email>
+                                <small class="form-text text-muted danger" 
+                                        *ngIf="!mail.valid && mail.touched">Favor de ingresar un correo!</small>
+                                    </div>
+                                </div>
+
+                                <!--Seccion Personal-->  
+                           
+<!--                                 registerForm
+ -->                              
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="password" id="nombreUsuario"  class="form-control" placeholder="brecha2018" 
+                                        name="password" #password="ngModel" 
+                                        [(ngModel)]="user.password"   
+                                        required>
+                                <small class="form-text text-muted danger" 
+                                        *ngIf="!password.valid && password.touched">Favor de ingresar Password!</small>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0 ml-3">
+                                                <input type="checkbox" class="custom-control-input" checked id="rememberme">
+                                                <label class="custom-control-label float-left white" for="rememberme">Remember Me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-teal btn-block btn-raised" style="background-color:#28a745">Confirmar</button>
+                                        <!-- <button type="button" class="btn btn-secondary btn-block btn-raised" (click)="typeLimpiar(); loginForm.reset();">Cancelar</button> -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="float-left"><a (click)="onForgotPassword()" class="white">Recuperar Contraseña</a></div>
+                        <div class="float-right"><a  class="white">Dudas?</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Login Page Ends-->

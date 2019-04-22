@@ -1,0 +1,379 @@
+<!-- Basic form layout section start -->
+
+<section id="horizontal-form-layouts">
+
+	<div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="content-header">Registro de Unidad</div>
+
+        </div>
+
+    </div>
+
+	
+
+
+
+	<div class="row">
+
+		<div class="col-md-12">
+
+	        <div class="card">
+
+	            <div class="card-header">
+
+	                <h4 class="card-title" id="horz-layout-colored-controls"></h4>
+
+<!-- 	                <p class="mb-0">Los usuarios registrados en esta seccion podran acceder al <code>.panel de administracion</code> Cada usuario posee un tipo de rol <code> Administrador Principal, Administrador de secciones, Vendedor, Jefe de estacion, etc</code> cada uno podra visualizar distintas acciones en el <code>panel</code> todo usuario creado podra ser dado de alta automaticamente.</p>
+ -->
+	            </div>
+
+	            <div class="card-body">
+
+	                <div class="px-3">
+
+					    <form class="form form-horizontal"  #registerForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(registerForm); registerForm.reset();" novalidate>
+
+	                    	<div class="form-body">
+
+								<h4 class="form-section"><i class="ft-user-plus"></i> Registro (Requerido)</h4>
+
+								<!-- Primera Tabla-->
+
+	                    		<div class="row">
+
+									<!-- nombre -->
+
+	                    			<div class="col-md-4">
+
+				                        <div class="form-group row">
+
+				                        	<label class="col-md-3 label-control" for="nombre">Nombre: </label>
+
+				                        	<div class="col-md-9">
+
+                                                <input type="text" id="nombre" class="form-control border-primary"  name="nombre" placeholder="Nombre ejemplo: Jose"  [(ngModel)]="departamento.nombre" #nombre="ngModel" minlength="2" maxlength="25" required >
+
+												<span class="form-text bg-danger text-highlight white" *ngIf="nombre.errors?.required && nombre.touched">Campo es requerido </span>
+
+												<span class="form-text bg-danger text-highlight white" *ngIf="nombre.errors?.minlength">Minimino 3 caracteres</span>
+
+												<span class="form-text bg-danger text-highlight white" *ngIf="nombre.errors?.maxlength">Maximo de caracteres 25</span>
+
+				                            </div>
+
+				                        </div>
+
+									</div>
+	                    		</div>
+
+									<!-- apellido -->
+									<div class="row">
+
+				                    <div class="col-md-4">
+
+				                        <div class="form-group row">
+
+				                        	<label class="col-md-3 label-control" for="apellido">Apellido: </label>
+
+				                        	<div class="col-md-9">
+
+													<input type="text" id="apellido" class="form-control border-primary"  name="apellido" placeholder="Apellido ejemplo: Gutierrez"  [(ngModel)]="departamento.apellido" #apellido="ngModel" minlength="2" maxlength="25" required >
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="apellido.errors?.required && apellido.touched">Campo es requerido </span>
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="apellido.errors?.minlength">Minimino 3 caracteres</span>
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="apellido.errors?.maxlength">Maximo de caracteres 25</span>
+
+			                        		</div>
+
+				                        </div>
+
+									</div>
+									</div>
+
+									<!-- Nick -->
+
+									<div class="row">
+
+
+									<div class="col-md-4">
+
+										<div class="form-group row">
+
+											<label class="col-md-3 label-control" for="nick">Unidad: </label>
+
+											<div class="col-md-9">
+
+													<input type="text" id="nick" class="form-control border-primary"  name="nick" placeholder="Nick: Unidad Salud"  [(ngModel)]="departamento.nick" #nick="ngModel" minlength="2" maxlength="40" required >
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="nick.errors?.required && nick.touched">Campo es requerido </span>
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="nick.errors?.minlength">Minimino 3 caracteres</span>
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="nick.errors?.maxlength">Maximo de caracteres 25</span>
+
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+
+								<!-- Fin Primera Tabla-->
+
+
+
+								<!-- Segunda Tabla-->
+
+	                    		<div class="row">
+
+									<!-- Email -->
+
+	                    			<div class="col-md-4">
+
+				                        <div class="form-group row">
+
+				                        	<label class="col-md-3 label-control" for="email">Email: </label>
+
+				                        	<div class="col-md-9">
+
+													<input type="email" id="email" class="form-control border-primary"  name="email" placeholder="Nombre ejemplo: prueba@brechadigital.cl"  [(ngModel)]="departamento.email" #email="ngModel" minlength="2" maxlength="50" required >
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="email.errors?.required && email.touched">Campo es requerido </span>
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="email.errors?.minlength">Minimino 3 caracteres</span>
+
+													<span class="form-text bg-danger text-highlight white" *ngIf="email.errors?.maxlength">Maximo de caracteres 50</span>
+
+			                        		</div>
+
+				                        </div>
+
+									</div>
+								</div>
+								
+								<div class="row">
+
+
+									<!-- Clave -->
+
+				                    <div class="col-md-4">
+
+				                        <div class="form-group row">
+
+				                        	<label class="col-md-3 label-control" for="password">Clave: </label>
+	
+												<div class="col-md-9">
+	
+														<input type="password" id="password" class="form-control border-primary"  name="password" placeholder="contraseña"  [(ngModel)]="departamento.password" #password="ngModel" minlength="2" maxlength="50" required >
+	
+														<span class="form-text bg-danger text-highlight white" *ngIf="password.errors?.required && password.touched">Campo es requerido </span>
+	
+														<span class="form-text bg-danger text-highlight white" *ngIf="password.errors?.minlength">Minimino 3 caracteres</span>
+	
+														<span class="form-text bg-danger text-highlight white" *ngIf="password.errors?.maxlength">Maximo de caracteres 50</span>
+	
+												</div>
+
+				                        </div>
+
+									</div>
+
+									<!-- Pais -->
+
+									<!-- <div class="col-md-3">
+
+				                        <div class="form-group row">
+
+											<label class="col-md-3 label-control" for="empresa">Empresa: </label>
+	
+											<div class="col-md-9">
+
+												<div class="form-group">
+													<select class="form-control" id="empresa" name="empresa" #empresa="ngModel" [(ngModel)]="user.empresa">
+													  <option *ngFor="let empresa of arrayEmp" value={{empresa._id}}> {{empresa.name}}</option>
+													</select>
+												  </div> 
+												  
+
+											</div>
+
+
+				                        </div>
+
+									</div> -->
+
+								
+
+								</div>
+
+								<!-- Fin Segunda Tabla-->
+
+
+
+
+								<!-- Tercera Tabla-->
+
+	                    		<div class="row">
+
+									<!-- Rol -->
+
+	                    			<!-- <div class="col-md-3">
+
+				                        <div class="form-group row">
+
+											<label class="col-md-3 label-control" for="rol">Rol: </label>
+
+				                        	<div class="col-md-9">
+
+												<div class="form-group">
+													<select class="form-control" id="rolname" name="rolname" #rolname="ngModel" [(ngModel)]="departamento.rol">
+													  <option *ngFor="let rol of arrayRol" value={{rol._id}}> {{rol.name}}</option>
+													</select>
+												  </div> 
+												  
+
+			                        		</div>
+
+				                        </div>
+
+									</div> -->
+
+									<!-- Pais -->
+
+				                   <!--  <div class="col-md-3">
+
+				                        <div class="form-group row">
+
+											<label class="col-md-3 label-control" for="pais">Pais: </label>
+	
+											<div class="col-md-9">
+
+												<div class="form-group">
+													<select class="form-control" id="pais" name="pais" #pais="ngModel" [(ngModel)]="departamento.pais">
+													  <option *ngFor="let pais of arrayPai" value={{pais._id}}> {{pais.name}}</option>
+													</select>
+												  </div> 
+												  
+
+											</div>
+
+
+				                        </div>
+
+									</div> -->
+
+									<!-- Nick -->
+
+									<!-- <div class="col-md-3">
+
+										<div class="form-group row">
+
+											<label class="col-md-3 label-control" for="ocupation">Profesion: </label>
+
+				                        	<div class="col-md-9">
+
+												<div class="form-group">
+													<select class="form-control" id="ocupation" name="ocupation" #ocupation="ngModel" [(ngModel)]="user.ocupation">
+													  <option *ngFor="let ocupation of arrayProf" value={{ocupation._id}}> {{ocupation.name}}</option>
+													</select>
+												  </div> 
+												  
+
+			                        		</div>
+										</div>
+
+									</div> -->
+
+								</div>
+
+								<!-- Fin Primera Tabla-->
+
+									
+								
+
+								
+
+
+								
+
+								<!-- Tercera Tabla-->
+		                        <div class="row">
+										<!-- Email --> 
+	
+										   <div class="col-md-3">
+	
+											<div class="form-group row">
+	
+												
+	
+											</div>
+	
+										</div>
+										
+										
+										<!-- Fin Tercera Tabla-->
+										
+										
+									</div>
+									
+									<!-- Fin Primer Head-->
+
+									
+									
+
+
+
+
+
+
+
+
+								
+
+
+
+		                     
+
+							</div>
+
+
+							<div class="form-actions">
+
+									<button type="button" class="btn btn-raised btn-warning mr-1" id="type-success" (click)="typeLimpiar(); registerForm.reset();">
+
+											<i class="ft-x"></i> Limpiar Datos</button>
+
+						<button type="submit" class="btn btn-raised btn-primary" [disabled]="!registerForm.form.valid" >
+
+							<i class="fa fa-check-square-o"></i> Guardar
+
+						</button>
+
+					</div>
+
+
+	                    </form>
+
+
+
+	                </div>
+
+	            </div>
+
+	        </div>
+
+	    </div>
+
+	</div>
+
+
+
+</section>
+
+<!-- // Basic form layout section end -->

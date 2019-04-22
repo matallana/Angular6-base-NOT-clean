@@ -1,0 +1,60 @@
+<section id="basic-form-layouts">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="content-header">Panel de Unidades</div>
+				<div class="alert alert-danger" *ngIf="status=='error'">Ha ocurrido un error en el servidor de tipo:"{{errorMsg}}</div>
+			</div>
+		</div>
+		<div class="row">
+		</div>
+		<div class="row match-height" style="display: table!important;">
+			<div class="col-md-11">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title" id="basic-layout-form-center">Unidades</h4>
+						<p class="mb-0">Listado de las Unidades registradas hasta el momento <code>  </code></p>
+						
+					</div>
+					<div class="card-body">
+						<div class="px-3">
+	
+	
+								<ng2-smart-table style="background-color: transparent;border: 0;" [settings]="settings3" [source]="source"
+								(editConfirm)="editar($event)"
+								(deleteConfirm)="onDeleteConfirm($event)"
+									>
+								</ng2-smart-table>
+	
+	
+	
+	
+					
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- <div class="row match-height">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title" id="basic-layout-form-center">Eventos por Reformular</h4>
+							<p class="mb-0">Listado de los Eventos Requeridos para Reformular <code>  </code></p>
+							
+						</div>
+						<div class="card-body">
+							<div class="px-3">								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		<div>
+		</div>
+		<!-- <div>
+			<app-empresa-smart-data-table></app-empresa-smart-data-table>
+		</div> -->
+	</section>
+	
+	

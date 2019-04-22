@@ -1,0 +1,18 @@
+@import "../../../../assetsa/front/css/reset.css";
+@import "../../../../assetsa/front/css/style.css";
+@import "../../../../assetsa/front/css/plugins.css";
+@import "../../../../assetsa/front/css/invoice.css";
+@import "../../../../assetsa/front/css/cs-style.css";
+@import "../../../../assetsa/front/css/color.css";
+
+.footer_copy {
+    text-align: center;
+    float: unset;
+}
+#Footer .footer_copy .copyright{
+    float: unset!important;
+}
+
+.main-footer{
+    background:#6463636b;
+}

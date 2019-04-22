@@ -1,0 +1,348 @@
+<h2 style="text-align:center;"><b>Eventos Pendientes</b></h2>
+<br> <br>
+
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Evento en {{ modalData?.lugar }} (Postulado por {{modalData?.datouser}}) </h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row modalrow">
+          <div class="col-md-4 offset-md-4" style="text-align:center;">
+              <div><span class="subtitleModal">FECHA:</span></div>
+              <div><span>{{ modalData?.fechacute }}</span></div>
+
+            </div>
+         
+      </div>
+        
+      <div class="row modalrow">
+        
+        <div class="col-md-6 ">
+          <div class="row">
+              <div class="col-md-4">
+                  <img src="assets/img/panel/pendientes/IMG-09.png" alt="" >
+              </div>
+              <div class="col-md-6 divsubtitle" >
+               <span class="subtitleModal">
+                  LUGAR:
+               </span>
+               <div>
+                    <span>
+                  {{ modalData?.lugar }}
+                   </span>
+              </div>
+                
+              </div>
+
+          </div>
+        </div>
+
+
+        <div class="col-md-6 ">
+            <div class="row ">
+                <div class="col-md-4">
+                    <img src="assets/img/panel/pendientes/IMG-05.png" alt="" >
+                </div>
+                <div class="col-md-6 divsubtitle" >
+                    <span class="subtitleModal">
+                        DESCRIPCIÓN:
+                      </span>
+                      <div>
+                  <span>
+              {{ modalData?.descripcion }}
+                  </span>
+                </div>
+                  
+                </div>
+  
+            </div>
+          </div>
+      </div>
+
+
+
+
+      <div class="row modalrow">
+          <div class="col-md-6 ">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="assets/img/panel/pendientes/IMG-02.png" alt="" >
+                </div>
+                <div class="col-md-6 divsubtitle" >
+                    <span class="subtitleModal">
+                        PERSONAS MAX:
+                      </span>
+                      <div>
+                  <span>
+                     {{ modalData?.maxpersonas }}  
+                  </span>
+                </div>
+                  
+                </div>
+  
+            </div>
+          </div>
+  
+  
+          <div class="col-md-6 ">
+              <div class="row ">
+                  <div class="col-md-4">
+                      <img src="assets/img/panel/pendientes/IMG-06.png" alt="" >
+                  </div>
+                  <div class="col-md-6 divsubtitle" >
+                      <span class="subtitleModal">
+                          ASISTENCIA ALCALDE:
+                        </span>
+                        <div>
+                    <span>
+                        {{ modalData?.asistenciaCorrecta }}
+                    </span>
+                  </div>
+                    
+                  </div>
+    
+              </div>
+            </div>
+        </div>
+      
+
+      <!-- <pre>{{ modalData?.action }}</pre> -->
+
+
+
+      <div class="row modalrow">
+          <div class="col-md-6 ">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="assets/img/panel/pendientes/IMG-04.png" alt="" >
+                </div>
+                <div class="col-md-6 divsubtitle" >
+                    <span class="subtitleModal">
+                        RESPONSABLE:
+                      </span>
+                      <div>
+                  <span>
+                     {{ modalData?.responsable }}        
+                  </span>
+                </div>
+                </div>
+  
+            </div>
+          </div>
+  
+  
+          <div class="col-md-6 ">
+              <div class="row">
+                  <div class="col-md-4">
+                      <img src="assets/img/panel/pendientes/IMG-10.png" alt="" >
+                  </div>
+                  <div class="col-md-6 divsubtitle">
+                      <span class="subtitleModal">
+                          TELÉFONO RESPONSABLE:
+                        </span>
+                        <div>
+                    <span>
+                       {{ modalData?.telfResponsable }}
+                    </span>
+                       </div>
+                  </div>
+    
+              </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row modalrow">
+            <div class="col-md-6 ">
+              <div class="row">
+                  <div class="col-md-4">
+                      <img src="assets/img/panel/pendientes/IMG-11.png" alt="" >
+                  </div>
+                  <div class="col-md-6 divsubtitle" >
+                      <span class="subtitleModal">
+                          RECURSOS:
+                        </span>
+                        <div>
+                    <span>
+                        {{ modalData?.recursos }}      
+                    </span>
+                       </div>  
+                  </div>
+    
+              </div>
+            </div>
+    
+    
+            
+          </div>
+
+          <div class="row modalrow">
+              <div class="col-md-12 ">
+                  <div class="row">
+                      <div class="col-md-2">
+                          <img src="assets/img/panel/pendientes/IMG-07.png" alt="" >
+                      </div>
+                      <div  class="col-md-9 divsubtitle">
+                          <span class="subtitleModal">
+                              OBSERVACIÓN FINAL:
+                            </span>
+  
+                            <div>
+                        
+                        <span>                      
+                        {{ modalData?.observacion }}      
+                        </span>
+                        
+                      </div>
+                      </div>
+        
+                  </div>
+                </div>
+          </div>
+
+
+
+
+
+    </div>
+    
+
+       
+
+
+
+  
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" style="color:white!important" (click)="close()">Volver</button>
+ <!-- <button
+    class="btn btn-danger" style="color:white!important" 
+    (click)="close(); refresh.next(); reformularcalendario(modalData)">
+    Reformular
+  </button>
+    <button
+    class="btn btn-success" style="color:white!important"
+    (click)="close(); refresh.next(); aprobarcalendario(modalData)">
+    Aprobar
+  </button> -->
+  </div>
+</ng-template>
+
+
+
+
+<div class="row text-center">
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div style="color:white!important"
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false">
+        Atras
+      </div>
+      <div
+        class="btn btn-outline-secondary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate">
+        Hoy
+      </div>
+      <div style="color:white!important"
+        class="btn btn-primary"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false">
+        Siguiente
+      </div> 
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+  </div>
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div style="color:white!important"
+        class="btn btn-primary"
+        (click)="view = CalendarView.Month"
+        [class.active]="view === CalendarView.Month">
+        Mes
+      </div>
+      <div style="color:white!important"
+        class="btn btn-primary"
+        (click)="view = CalendarView.Week"
+        [class.active]="view === CalendarView.Week">
+        Semanas
+      </div>
+      <div style="color:white!important"
+        class="btn btn-primary"
+        (click)="view = CalendarView.Day"
+        [class.active]="view === CalendarView.Day">
+        Dia
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="CalendarView.Month"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+    [locale]="locale">
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+    [locale]="locale">
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+    [locale]="locale">
+  </mwl-calendar-day-view>
+</div>
+
+
+
+
+
+
+
+  
+
+<!-- <td>
+  <button
+    class="btn btn-danger" style="color:white!important" *ngIf="showref"
+    (click)="events.splice(index, 1); refresh.next(); reformular(prep2[index])">
+    Reformular
+  </button>
+</td>
+<td>
+  <button
+    class="btn btn-success" style="color:white!important" *ngIf="showsuccess"
+    (click)="events.splice(index, 1); refresh.next(); aprobar(prep2[index])">
+    Aprobar
+  </button>
+</td> -->

@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html lang="en">
+     <!-- header-->
+    <app-header-pr-page></app-header-pr-page>
+  
+     <!--  header end -->
+        <body style="background: #ffff">
+        <div id="main">
+            
+            <!--  wrapper  -->
+            <div id="wrapper" style="padding-top:0px;">
+                <!-- content-->
+                <div class="content">
+                    <!--section -->
+                    <section class="hero-section" data-scrollax-parent="true" id="sec1" style="padding: 200px 0!important">
+                        <div class="hero-parallax">
+                            <div class="bg"  data-bg="1.jpg" data-scrollax="properties: { translateY: '200px' }"></div>
+                            <div class="overlay op7"></div>
+                            <div class="videoDiv bg">
+                              
+                                    <iframe id="player" allowfullscreen="1" title="YouTube video player" src="https://www.youtube.com/embed/mpd1iLFCn8A?controls=0;autoplay=1;loop=1;playlist=mpd1iLFCn8A" frameborder="0" allow="accelerometer;loop; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen  style="transform: translate(0px, -30%);" class="playing" width="100%" height="1080" frameborder="0"></iframe>
+                                    <div class="playPause"></div>
+                                    <div class="videoGradient"></div>
+                                    <div class="w-100 h-100 flex-center d-none d-sm-flex">
+                                      <div class="scrollCircle flex-center">
+                                        <div class="chevron"></div>
+                                        <div class="chevron"></div>
+                                        <div class="chevron"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+
+
+
+                        </div>
+                        <div class="hero-section-wrap fl-wrap">
+                            <div class="container">
+                                <div class="home-intro">
+                                    <div class="section-title-separator"><span></span></div>
+                                    <h2 style="font-size:62px;background-color:#212121">La Granjeria</h2>
+                                    <span class="section-separator"></span>                                    
+                                    <h3>Tu Granja Virtual</h3>
+                                </div>
+                                
+                            </div>
+                        </div>
+                       <!--  <div class="header-sec-link">
+                            <div class="container"><a href="#sec2" class="custom-scroll-link color-bg"><i class="fal fa-angle-double-down"></i></a></div>
+                        </div> -->
+                    </section>
+                    <!-- section end -->
+                    <!--section -->
+                    <section id="sec2" style="padding-top:0px;">
+
+                    
+                        
+                               
+                        <div class="main-div" style="display: flex;justify-content: center;align-items: center;">
+
+                                <mat-tab-group style="width: 100%;margin: 10px auto;" md-stretch-tabs dynamicHeight>
+                                    <mat-tab class="tablabel" label="Producto">
+                                      
+                                     
+                                     
+                                      <div class="container" id="principal" style="background: #fed018;max-width: 100%;width: 100%;">
+                                        <div class="row" style="margin-bottom: 3%;margin-top: 5%;">
+
+                                        <div class="col-md-3 col-md-offset-3">
+                                                <img class="chi" id="chi" width="80%" src="https://place-hold.it/670x693/#FFFF/#FFFF.jpg&text=670x693">
+
+                                        </div>
+                                        <div class="col-md-3">
+
+                                        <span class="frutaspan">{{fruta}}</span>
+
+                                        </div>
+                                      
+                                         </div>
+
+                                         <div class="row" style="margin-bottom: 3%;">  
+                                             <div class="col-md-2 col-md-offset-3">
+                                               <!--  <img class="fruta2" id="fruta2" width="15%" src="https://place-hold.it/670x693/#FFFF/#FFFF.jpg&text=670x693" > -->
+
+                                                <span style="vertical-align: bottom;font-size: 65px;"> <i class="fa fa-tree" style="color:black;font-family: Font Awesome\ 5 Pro!important;" aria-hidden="true"></i> &nbsp;{{stockhome}}</span>
+                                                <hr  style="border-color:black;margin-bottom: 20px;">
+                                                <span style="font-size:35px;">Unidades Disponibles</span>
+
+                                             </div>
+                                             <div class="col-md-2">
+                                                    <span style="vertical-align: bottom;font-size: 65px;">{{fechalimitehome}}</span>
+                                                    <hr  style="border-color:black;margin-bottom: 20px;">
+                                                    <span style="font-size:35px;">Fecha Límite de Adopcion</span>
+    
+                                                 </div>
+                                                 <div class="col-md-2">
+                                                        <span style="vertical-align: bottom;font-size: 65px;">{{fechacosechahome}}</span>
+                                                        <hr  style="border-color:black;margin-bottom: 20px;">
+                                                        <span style="font-size:35px;">Fecha de envío de la cosecha</span>
+        
+                                                     </div>
+                                            
+                                         </div>
+                                    </div> 
+
+
+
+                                    <div class="container" style="max-width: 100%;width: 100%;margin-top: 50px">
+                                            <div class="row" style="margin-bottom: 3%;">
+                                                <div class="col-md-6 col-md-offset-3">                                      
+                                                   <p style="font-size: 35px;color:black;line-height: initial;">{{descripcionhome}}</p>
+                                                </div>
+                                                </div>
+                                            <div class="row">
+                                            <div class="col-md-3 col-md-offset-3">
+                                                    <img class="fruta3" id="fruta3" width="80%" src="https://place-hold.it/670x693/#FFFF/#FFFF.jpg&text=670x693 ">
+    
+                                            </div>
+                                            <div class="col-md-3" style="text-align:left;">
+    
+                                            <input type="text" id="arbolname" placeholder="Nombre de tu {{tipodeadopcionhome}}" style="font-size: 3em;width: 100%;" required>
+                                            <hr style="border-color:black;margin-bottom: 20px;">
+                                         <br>
+
+                                            <div class="row" style="margin-bottom:20px;">
+                                                <div class="col-md-6">
+                                                    <span style="font-size: 3em;">Costo Adopción</span>
+                                                </div>
+                                                <div class="col-md-6" style="color: white; background-color: black;">
+
+                                                    <span style="font-size: 3em;">${{costoporadoptar}}</span>
+                                                      
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span style="font-size: 3em;">Costo por Envío</span> 
+                                                </div>
+                                                <div class="col-md-6" style="color: white; background-color: black;">
+
+                                                  <span style="font-size: 3em;">${{costodeenviohome}}</span>
+
+
+                                                   <!--  <select style="border-left-width: 0;height: 100%;font-size: 2.5em;;color: white;background-color: black;width: 100%; border-right-width: 0px;" class="form-control" id="exampleFormControlSelect1">
+                                                        <option>Región para envio de cosecha</option>
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                      </select> -->
+                                                </div>
+                                            </div>
+                                           
+                                              <br>
+                                            <br>
+
+                                            <div class="row" style="margin-bottom:20px;">
+                                                <div class="col-md-6">
+                                                    <span style="font-size: 3em;">Precio Final</span>
+                                                </div>
+                                                <div class="col-md-6" style="color: white; background-color: black;">
+
+                                                    <span style="font-size: 3em;" >${{costototalhome}}</span>
+                                                      
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:20px;">
+                                                <div class="col-md-6">
+                                                    <span style="font-size: 3em;">Cantidad Aprox</span>
+                                                </div>
+                                                <div class="col-md-6" style="color: white; background-color: black;">
+
+                                                    <span style="font-size: 3em;" >{{cantidadporadopcionhome}}kg <i class="fa fa-inbox" style="color:white;font-family: Font Awesome\ 5 Pro!important;float: right" aria-hidden="true"></i></span>
+                                                      
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:20px;">
+                                                    
+                                                    <div class="col-md-6 col-md-offset-6" >
+    
+                                                            <p style="font-size: 30px;">IVA y transporte incluido</p>
+                                                          
+                                                    </div>
+                                                </div>
+
+                                            <div class="row" style="margin-bottom:20px;height: 5em;">
+                                                    
+                                                        <div class="col-md-12" >
+        
+                                                        <button class="adoptar" (click)="comprar(35000)">ADOPTAR</button>
+                                                              
+                                                        </div>
+                                                    </div>
+
+
+    
+                                            </div>
+                                          
+                                             </div>
+    
+                                            
+                                        </div> 
+                                        
+
+                                   
+
+
+
+
+                                    </mat-tab>
+                                    <mat-tab  label="Granja">
+                                     
+                                      
+                                        <div class="container" style="max-width: 100%;width: 100%;margin-top: 50px">
+
+
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 granja">
+
+
+                                            <!--Carousel Wrapper-->
+                                            <mdb-carousel [isControls]="false" class="carousel-multi-item multi-animation" #supercarrusel [type]="'carousel-multi-item'" >
+<!--                                               [animation]="'slide'"
+ -->                                                    <!-- <div class="controls-top">
+                                                        <a class="btn-floatingleft" (click)="supercarrusel.nextSlide()">
+                                                            <i style="font-family: Font Awesome\ 5 Pro;font-weight: 900;color: black" class="fa fa-chevron-left"></i></a>
+                                                        <a class="btn-floatingright" (click)="supercarrusel.previousSlide()">
+                                                            <i style="font-family: Font Awesome\ 5 Pro;font-weight: 900;color: black" class="fa fa-chevron-right"></i></a>
+                                                    </div> -->
+                                                    <!--First slide-->
+                                                    
+                                                    <mdb-carousel-item>
+                                                      <div class="col-md-4" *ngIf="productorfamiliar">
+                                                        <mdb-card style="background:#ffff;box-shadow: unset!important;">
+                                                          <mdb-card-img src="../../../../assetsa/front/images/bg/home/{{desc1}}.png" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                                <br>                                                      
+                                                              <h4 style="font-family: 'GrandHotel', 'roboto', sans-serif!important;">Productor Familiar</h4>
+                                                            </mdb-card-title>
+                                                            <br>
+                                                            <p class="basico">Al menos dos miembros de una misma familias est&aacute;n involucrados en el trabajo diario y marcan el rumbo de esta granja.</p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                      <div class="col-md-4 clearfix d-none d-md-block"  *ngIf="aceptavisitas">
+                                                        <mdb-card style="background:#ffff;box-shadow: unset!important;">
+                                                          <mdb-card-img src="../../../../assetsa/front/images/bg/home/{{desc2}}.png" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                                <br>
+
+                                                              <h4 style="font-family: 'GrandHotel', 'roboto', sans-serif!important;">Acepta Visitas</h4>
+                                                            </mdb-card-title>
+                                                            <br>
+                                                            <p class="basico">Este Farmer acepta visitas de forma gratuita. Si eres Miembro de La Granjeria podrás ir a visitar y conocer personalmente a tu {{tipodeadopcionhome}}.
+
+                                                           </p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                      <div class="col-md-4 clearfix d-none d-md-block"  *ngIf="otracaracteristica">
+                                                        <mdb-card style="background:#ffff;box-shadow: unset!important;">
+                                                          <mdb-card-img src="../../../../assetsa/front/images/bg/home/{{desc3}}.png" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                              <br>
+                                                              <h4 style="font-family: 'GrandHotel', 'roboto', sans-serif!important;">(otra) Informaci&oacute;n </h4>
+                                                            </mdb-card-title>
+                                                              <br>
+
+                                                            <p class="basico">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                    </mdb-carousel-item>
+                                                    <!--/First slide-->
+                                                    <!--Second slide-->
+                                                    <!-- <mdb-carousel-item>
+                                                      <div class="col-md-4">
+                                                        <mdb-card>
+                                                          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(47).jpg" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                              <h4>Card title</h4>
+                                                            </mdb-card-title>
+                                                            <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                      <div class="col-md-4 clearfix d-none d-md-block">
+                                                        <mdb-card>
+                                                          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                              <h4>Card title</h4>
+                                                            </mdb-card-title>
+                                                            <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                      <div class="col-md-4 clearfix d-none d-md-block">
+                                                        <mdb-card>
+                                                          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                              <h4>Card title</h4>
+                                                            </mdb-card-title>
+                                                            <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                    </mdb-carousel-item> -->
+                                                    <!--/Second slide-->
+                                                    <!--Third slide-->
+                                                  <!--   <mdb-carousel-item>
+                                                      <div class="col-md-4">
+                                                        <mdb-card>
+                                                          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                              <h4>Card title</h4>
+                                                            </mdb-card-title>
+                                                            <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                      <div class="col-md-4 clearfix d-none d-md-block">
+                                                        <mdb-card>
+                                                          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(51).jpg" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                              <h4>Card title</h4>
+                                                            </mdb-card-title>
+                                                            <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                      <div class="col-md-4 clearfix d-none d-md-block">
+                                                        <mdb-card>
+                                                          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" alt="Card image cap"></mdb-card-img>
+                                                          <mdb-card-body>
+                                                            <mdb-card-title>
+                                                              <h4>Card title</h4>
+                                                            </mdb-card-title>
+                                                            <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                          </mdb-card-body>
+                                                        </mdb-card>
+                                                      </div>
+                                                    </mdb-carousel-item> -->
+                                                    <!--/Third slide-->
+                                                  </mdb-carousel>
+                                                  <!--/.Carousel Wrapper-->
+                                            
+                                            
+
+
+                                            <p class="basico"  *ngIf="aceptavisitas">   <b style="font-family: 'Lato', Arial, Tahoma, sans-serif !important;">IMPORTANTE:</b> es imprescindible escribir a {{emailgranja}} para concertar una visita con antelación. Ten en cuenta que no se trata de un sitio abierto al público y que el Productor se tiene que organizar para poder atender tu visita correctamente.</p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4 col-md-offset-2">
+                                            <div style="background-color:black;color: white; padding: 10px;">
+                                                <span style="font-size: 2.8em;font-family: 'GrandHotel', 'roboto', sans-serif!important;" >Mapa de la Granja </span>
+                                            </div>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d832.4391477229173!2d-70.61962881184948!3d-33.42958977955582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf62d14b451f%3A0xc74800739066fa4a!2sBrecha+Digital+Consultores!5e0!3m2!1ses!2scl!4v1542397867644"
+                                            width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                          <div style="background-color:black;color: white; padding: 10px;">
+                                                  <span style="font-size: 2.8em;font-family: 'GrandHotel', 'roboto', sans-serif!important;" >Información de Contacto </span>
+                                              </div>
+                                                 <div>
+                                                     <br>
+                                                  <p class="basico"><i class="fas fa-phone" style="color:black;font-family: Font Awesome\ 5 Pro!important;" aria-hidden="true"></i>&nbsp;Email: &nbsp;{{emailgranja}}</p>
+                                                  <p class="basico"> <i class="fas fa-map-marker-alt" style="color:black;font-family: Font Awesome\ 5 Pro!important;"></i>&nbsp;Teléfono: 051-670300</p>
+                                                  <p class="basico" style="padding-bottom:0px;margin-bottom:0px;">Descripcion Granja</p>
+                                                 </div>
+                                                 <div class="row">
+                                                   <div class="col-md-6">
+                                                    <img src="../../../../assetsa/front/images/bg/home/{{trackicon}}.png" style="width:100%;">
+
+                                                   </div>
+                                                 </div>
+                                          </div>
+                                    </div>
+
+
+
+
+
+
+                                        
+    
+                                            
+                                        </div> 
+                                    </mat-tab>
+
+                                    <mat-tab label="Productor" (click)="fotofrutota()" >
+                                      
+                                        <div class="container" style="max-width: 100%;width: 100%;margin-top: 50px">
+                                                <div class="row">
+                                                        <div class="col-md-4 col-md-offset-2">
+                                                         
+                                                                    <img class="chi2" id="chi2" width="80%" src="../../../../assetsa/front/images/bg/home/{{farmer}}{{fruta}}.png">
+                    
+                                                        </div>
+                
+                                                        <div class="col-md-4">
+                                                         
+                                                          <div class="row" style="margin-top:10em;">
+                                                            <div class="col-md-12" style="text-align:left;">
+                                                           
+                                                                <span  style="text-align:left;font-size: 2.8em;font-family: 'GrandHotel', 'roboto', sans-serif!important;" >{{nombreProductor}} {{apellidoProductor}} </span>
+
+                                                        
+                                                            
+<!--                                                                 <span  *ngIf="fruta=='naranjo'" style="text-align:left;font-size: 2.8em;font-family: 'GrandHotel', 'roboto', sans-serif!important;" >Susana Soto </span>
+ -->
+                                                           
+
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-md-12" >
+                                                                <p class="basico" style="text-align:justify;">
+                                                                  {{informacionProductor}}
+                                                                </p>
+                                                              </div>
+                                                            </div>
+                                                          <!--   <div class="row">
+                                                                <div class="col-md-12" style="text-align:left">
+                                                                    <i class="fab fa-facebook-f" style="font-size:3em;color:black;font-family: Font Awesome\ 5 Brands;margin: 3%"></i> <i class="fab fa-twitter" style="font-size:3em;color:black;font-family: Font Awesome\ 5 Brands;margin: 3%"></i> <i class="fab fa-instagram" style="font-size:3em;color:black;font-family: Font Awesome\ 5 Brands;margin: 3%"></i> <i class="fab fa-youtube" style="font-size:3em;color:black;font-family: Font Awesome\ 5 Brands;margin: 3%"></i>
+                                                                </div>
+                                                              </div> -->
+                                                        </div>
+                                                    </div>
+    
+                                            
+                                        </div> 
+                                    </mat-tab>
+
+                                  </mat-tab-group>
+
+                            </div>
+                       
+                          
+
+                           
+
+
+                        
+
+                        </section>
+                    <!-- section end -->
+                    <!-- section-->
+                   
+                  
+                    
+                </div>
+                <!-- content end-->
+            </div>
+            <!--wrapper end -->
+            <!--footer -->
+            <div class="column mcb-column one column_image ">
+                    <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+                       <div class="image_wrapper">
+                            <img class="scale-with-grid" src="https://www.lagranjeria.cl/wp-content/uploads/2018/08/img_footer.png" alt="" title="">
+                       </div>
+                    </div>  
+                 </div>
+            <app-footer-pr-page></app-footer-pr-page>
+            <!--footer end -->
+           
+            <a class="to-top"><i class="fas fa-caret-up"></i></a>
+        </div>
+        <!-- Main end -->
+        <!--=============== scripts  ===============-->
+      
+            
+    </body>

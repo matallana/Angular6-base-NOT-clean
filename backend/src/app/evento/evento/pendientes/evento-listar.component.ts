@@ -194,7 +194,7 @@ export class SmartTableEventoListarPendienteComponent  {
      json = response;
      this.backup = json;
 
-     console.log(json[0].asistenciaAlcalde);
+    //  console.log(json[0].asistenciaAlcalde);
 
 
       

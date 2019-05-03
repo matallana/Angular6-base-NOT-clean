@@ -8,4 +8,7 @@ declare module 'leaflet';
 declare module 'perfect-scrollbar';
 declare module 'screenfull';
 declare module 'd3-shape';
+declare module 'googlemaps';
+declare module '@types/googlemaps'
+
 

@@ -22,6 +22,8 @@ var md_upload_banner = multipart({uploadDir:'./uploads/users/banner'});
 //api.post('/register',  md_auth.ensureAuth, UserController.saveUser);
  api.post('/registerdep',  md_auth.ensureAuth, UserController.saveUser);
  api.post('/registerdir',  md_auth.ensureAuth, UserController.saveDir);
+//  api.get('/lolazo',  UserController.lolazo);
+
 /* 
 api.post('/registerhome', UserController.saveUserHome);
 api.post('/login',  UserController.loginUser);

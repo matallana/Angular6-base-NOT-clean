@@ -17,6 +17,8 @@ var User = require('../../models/usuario/user');
 var fs = require('fs');
 var path = require('path');
 var moment= require('moment');
+// var unirest = require('unirest');
+
 
 
 
@@ -176,7 +178,7 @@ function saveDir(req, res){
         user.is_active = params.is_active;
         User.find({ $or: [ 
                             { email: user.email.toLowerCase() },
-                            { nick: user.nick.toLowerCase() },
+                            // { nick: user.nick.toLowerCase() },
         ]}).exec((err, users)=>{
             console.log('================================================================');
             console.log(users);
@@ -544,6 +546,14 @@ function getUserAll(req, res){
 
  */
 
+//  function lolazo(req, res){
+//     unirest.get("https://bettingodds-bettingoddsapi-v1.p.rapidapi.com/leagues")
+//     .header("X-RapidAPI-Host", "bettingodds-bettingoddsapi-v1.p.rapidapi.com")
+//     .header("X-RapidAPI-Key", "90d1aca653msh197473462fa84f3p134234jsn4682f5efb73c")
+//     .end(function (result) {
+//       console.log(result.status, result.headers, result.body);
+//     });
+//  }
 
 
 module.exports = { 
@@ -561,5 +571,7 @@ module.exports = {
     updateUserI,
     updateUserII,
     saveDir,
+    lolazo,
+
 }
 

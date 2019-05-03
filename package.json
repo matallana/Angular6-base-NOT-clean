@@ -27,6 +27,7 @@
     "webpay-nodejs": "^1.2.0"
   },
   "devDependencies": {
+    "@types/googlemaps": "^3.30.19",
     "nodemon": "^1.18.3"
   }
 }

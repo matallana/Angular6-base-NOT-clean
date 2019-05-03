@@ -26,6 +26,7 @@ import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
  */import { EventosComponent } from './eventos/eventos.component';
 import { EventosAprobadosComponent } from './eventos/soloaprobados/eventos.aprobados.component';
 import { EventosPendientesComponent } from './eventos/pendientes/eventos.pendientes.component';
+import { EventosdirComponent } from './eventos/segundireccion/eventosdir.component';
 
 
 
@@ -38,6 +39,10 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 
+import { AgmCoreModule } from '@agm/core';
+
+
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 
 
@@ -67,6 +72,8 @@ import { VideoComponentAdministracion } from './video/ver/video-form.component';
 import { CalendarHeaderComponent } from './eventos/calendar-header.component';
 import { CalendarHeaderComponentp } from './eventos/pendientes/calendar-header.component';
 import { CalendarHeaderComponenta } from './eventos/soloaprobados/calendar-header.component';
+ import { CalendarHeaderComponentd } from './eventos/segundireccion/calendar-header.component';
+
 
 
 
@@ -123,6 +130,15 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
         HttpModule,
         UiSwitchModule,
         HttpClientModule,
+
+        AgmCoreModule.forRoot({
+            clientId: '<mandatory>',
+            apiKey: "AIzaSyCS_vo9wZHc3BhI4YtJfAIuNrtwa2xwzZU",
+            libraries: ["geometry","places"]
+          }),
+        MatGoogleMapsAutocompleteModule.forRoot(),  
+
+      
       
         
         
@@ -149,10 +165,12 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
         EventosComponent,
         EventosAprobadosComponent,
         EventosPendientesComponent,
+        EventosdirComponent,
         CalendarHeaderComponent,
         CalendarHeaderComponentp,
-        CalendarHeaderComponenta
+        CalendarHeaderComponenta,
+        CalendarHeaderComponentd
     ],
-    exports: [CalendarHeaderComponent,CalendarHeaderComponentp,CalendarHeaderComponenta]
+    exports: [CalendarHeaderComponent,CalendarHeaderComponentp,CalendarHeaderComponenta,CalendarHeaderComponentd]
 
 }) export class AdministracionModule { }

@@ -30,6 +30,8 @@ import { VideoComponentAdministracion } from './video/ver/video-form.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { EventosAprobadosComponent } from './eventos/soloaprobados/eventos.aprobados.component';
 import { EventosPendientesComponent } from './eventos/pendientes/eventos.pendientes.component';
+import { EventosdirComponent } from './eventos/segundireccion/eventosdir.component';
+
 
 
 
@@ -166,7 +168,7 @@ const routes: Routes = [
       },
       {
         path: 'eventos/miunidad',
-        component: EventosComponent,
+        component: EventosdirComponent,
         data: {
           title: 'Eventos de mi Unidad'
         }

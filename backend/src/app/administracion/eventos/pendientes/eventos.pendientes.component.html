@@ -16,6 +16,14 @@
               <div><span>{{ modalData?.fechacute }}</span></div>
 
             </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+              <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                  <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="mapapersonalizado" ></agm-marker>
+                </agm-map>  
+              </div>
+            </div>
          
       </div>
         
@@ -236,7 +244,7 @@
   </button>
     <a
       class="btn btn-success" style="color:white!important" target="_blank"
-      href="http://lagranja.agendamunicipal.cl:3789/api/minuta/{{modalData?.pdfnameid}}.pdf">
+      href="http://lagranja.agendamunicipal.cl:3803/api/minuta/{{modalData?.pdfnameid}}.pdf">
       Ver Minuta
     </a>
   </div>

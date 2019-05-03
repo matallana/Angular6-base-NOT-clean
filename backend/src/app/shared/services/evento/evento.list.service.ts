@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
 
+@Injectable()
 
 export class EventoListService{ 
         public url: string;

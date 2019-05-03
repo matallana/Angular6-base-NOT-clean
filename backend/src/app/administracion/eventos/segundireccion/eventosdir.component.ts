@@ -11,10 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import {EventoService} from '../../../shared/services/evento/evento.service';
 import * as moment from 'moment';
-import * as alertFunction from '../../../shared/data/sweet-alerts';
 import 'moment/locale/es-us';
-import 'moment-timezone';
-
 
 
 import {
@@ -55,13 +52,13 @@ registerLocaleData(localeEs);
 
 
 @Component({
-  selector: 'app-eventos-aprobados',
-  templateUrl: './eventos.aprobados.component.html',
-  styleUrls: ['./eventos.aprobados.component.scss'],
+  selector: 'app-eventosdir',
+  templateUrl: './eventosdir.component.html',
+  styleUrls: ['./eventosdir.component.scss'],
   providers: [EventoService]
 })
 
-export class EventosAprobadosComponent implements OnInit {
+export class EventosdirComponent implements OnInit {
 
   constructor(public modal: NgbModal,    public _eventoService: EventoService  ) {}
 
@@ -74,9 +71,13 @@ export class EventosAprobadosComponent implements OnInit {
   public estado:any;
   public estado2:any;
   public observacioncalendario:any;
-  public pdfname:any;
+  public datouser:any;
+  public idunidad:any;
+
 
   ngOnInit() {
+    this.getUserIdentity()
+    console.log(this.idunidad);
     this.cargardatos();
 
 
@@ -131,7 +132,6 @@ export class EventosAprobadosComponent implements OnInit {
   modalData: {
     action: string;
     event: CalendarEvent;
-    pdfnameid: string;
     maxpersonas:string;
     codigo: string;
     estado: string;
@@ -237,9 +237,15 @@ actions: CalendarEventAction[] = [
     }
 }
 
-  cargardatos(){
+getUserIdentity(){
+  this.idunidad = this._eventoService.getIdentity().nick;
 
-    this._eventoService.getCalendarioAprobados().subscribe(data => {
+
+}
+
+cargardatos(){
+    console.log(this.events);
+    this._eventoService.getCalendariobyunidadtotales().subscribe(data => {
 
       this.events = data;
       this.prep2 = data;
@@ -248,27 +254,36 @@ actions: CalendarEventAction[] = [
       for(let i = 0; i<this.events.length;i++){
         this.events[i].end =new Date(data[i].end);
 
-       var inicio =  moment(this.events[i].start).tz('America/Santiago').format('Z');
-       
-       var fecha = new Date(this.events[i].start);
-       fecha.setHours(fecha.getHours()+Number(inicio.substring(2,3)));
-       console.log(Number(inicio.substring(2,3)));
-       this.prep2[i].start =fecha;
+        var inicio =  moment(this.events[i].start).tz('America/Santiago').format('Z');
+        
+        var fecha = new Date(this.events[i].start);
+        fecha.setHours(fecha.getHours()+Number(inicio.substring(2,3)));
+        console.log(Number(inicio.substring(2,3)));
+        this.prep2[i].start =fecha;
+  
+        if(this.prep2[i].estado =='aprobado'){
+          var color = colors.blue;
+            }
+        if(this.prep2[i].estado =='pendiente'){
+          var color = colors.yellow;
+            }
+        if(this.prep2[i].estado =='reformular'){
+           var color = colors.red;
+         }    
 
-      //  var tiempo = moment(new Date()).tz('America/Santiago').utcOffset();
-      //  console.log(inicio)
-      //  fecha = new Date(moment(fecha).utcOffset());
+
+
         eventos[i] = {
             id:this.events[i].id,
-            start:fecha,
-            end:fecha,
+            start:new Date(this.events[i].start),
+            end:new Date(this.events[i].start),
             actions: this.actions,
             title:this.events[i].title,
-            
+           
            // title:this.events[i].hora,
           
             //cantidad: this.events[i].cantidad,
-            color: colors.blue,
+            color: color,
         }
 
       }
@@ -280,9 +295,7 @@ actions: CalendarEventAction[] = [
       this.refresh.next();
     //  this.handleEvent('Clicked',eventos[0])
 
-});
-
-
+    });
  
   }
 
@@ -297,88 +310,10 @@ actions: CalendarEventAction[] = [
     this.refresh.next();
   }
 
-  reformular(index, numero){
-    const observacion = this.observacion[numero];
-    index.estado = 'reformular';
-    const idevento = index.id;
-    console.log(idevento);
-    console.log(index);
-    this._eventoService.getEventosByidaprobado(idevento).subscribe(evento =>{
-        var eventoseleccionado:any = evento;
-        eventoseleccionado[0].estado = 'reformular'
-        eventoseleccionado[0].observacion = observacion;
-        console.log(eventoseleccionado);
-        this._eventoService.reformular(eventoseleccionado).subscribe(data => {
-
-          if(data){
-            this.showref = false;
-            this.typeRechazar();
-            this.observacion = []; 
-
-            this.cargardatos();
-      
-            console.log(data);
-
-          }else{
-            this.typeErr();
-            console.log('error');
-          }
-          
-        
-        });
-
-    })
-    
-    
-
-  }
-
-  reformularcalendario(evento){
-    console.log(evento);
-    evento.observacion = this.observacioncalendario;
-    var observacioncalendario = evento.observacion;
-    var idevento = evento.event.id;
-    console.log(idevento);
-
-    this._eventoService.getEventosByidaprobado(idevento).subscribe(evento =>{
-      var eventoseleccionado:any = evento;
-      console.log(evento);
-      console.log(eventoseleccionado);
-      eventoseleccionado[0].estado = 'reformular'
-      eventoseleccionado[0].observacion = observacioncalendario;
-      console.log(eventoseleccionado);
-      this._eventoService.reformular(eventoseleccionado).subscribe(data => {
-
-        if(data){
-          this.showref = false;
-          this.observacion = []; 
-
-          this.cargardatos();
-          this.typeRechazar();
-
-    
-          console.log(data);
-
-        }else{
-          console.log('error');
-          this.cargardatos();
-          this.typeErr();
-
-        }
-        
-      
-      });
-
-  })
-
-   
-
-  }
-
 
   handleEvent(action: string, event: CalendarEvent): void {
     console.log("Event====>",event);
-    this._eventoService.getEventosByidaprobado(event.id).subscribe(data => {
+    this._eventoService.getEventobyidtotal(event.id).subscribe(data => {
       console.log("DATA para desplegar",data)
 
           const datoeventos:any = data[0];
@@ -390,8 +325,14 @@ actions: CalendarEventAction[] = [
           this.hola = datoeventos.cantidad;
           this.estado = datoeventos.estado;
 
-          var datouser = datoeventos.user.nick;
+          /* if(datoeventos.user){
+            this._eventoService.getEventosbyUser(datoeventos.user).subscribe(data => {
 
+              this.datouser= data;
+              console.log(data);
+            });
+          } */
+          var datouser = datoeventos.user.nick;
           var lugar =datoeventos.lugar;
           var maxpersonas =datoeventos.maxpersonas;
           var codigo =datoeventos.codigo;
@@ -428,8 +369,7 @@ actions: CalendarEventAction[] = [
           this.observacioncalendario = observacion;
           var pdfnameid = datoeventos._id;
 
-
-      this.modalData = { event, action, pdfnameid, maxpersonas, codigo, estado, lugar,datouser, fechaevento, responsable, telfResponsable, descripcion,fechacute, recursos, asistenciaAlcalde, asistenciaCorrecta, observacion};
+      this.modalData = { event, action, maxpersonas, codigo, estado, datouser, lugar, fechaevento, responsable, telfResponsable, descripcion,fechacute, recursos, asistenciaAlcalde, asistenciaCorrecta, observacion};
       console.log("Desplegar evento====>",this.modalData);
  });
 
@@ -452,20 +392,6 @@ actions: CalendarEventAction[] = [
     });
     this.refresh.next();
   }
-
-  typeGuardar(){
-    alertFunction.EventSuccess();
-}
-
-  typeRechazar(){
-    alertFunction.EventRef();
-
-}
-
-typeErr(){
-  alertFunction.typeErrorcl2();
-
-}
 
  
 

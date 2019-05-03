@@ -23,7 +23,7 @@ Fecha Nueva: <input [ngClass]="inputClass"
         #name [(ngModel)]="cell.newValue"
         class="form-control border-primary"
         [name]="cell.getId()"
-        [disabled]="!cell.isEditable()"
+        
         [placeholder]="cell.getTitle()"
         (click)="onClick.emit($event); "
         (keyup)="updateValue()"

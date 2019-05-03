@@ -39,7 +39,7 @@ const colors: any = {
     secondary: '#FAE3E3'
   },
   blue: {
-    primary: '#1e90ff',
+    primary: '#7dbb00',
     secondary: '#D1E8FF'
   },
   yellow: {
@@ -239,10 +239,32 @@ actions: CalendarEventAction[] = [
     this._eventoService.getCalendario().subscribe(data => {
 
       this.events = data;
+      this.prep2 = data;
+
       console.log("Data agregada======>",data);
       var eventos:CalendarEvent[] = [];
       for(let i = 0; i<this.events.length;i++){
-        this.events[i].end =new Date(data[i].end);
+        if(this.prep2[i].estado =='aprobado'){
+          var color = colors.blue;
+            }
+        if(this.prep2[i].estado =='pendiente'){
+          var color = colors.yellow;
+            }
+        if(this.prep2[i].estado =='reformular'){
+           var color = colors.red;
+         } 
+
+
+         this.events[i].end =new Date(data[i].end);
+
+         var inicio =  moment(this.events[i].start).tz('America/Santiago').format('Z');
+         
+         var fecha = new Date(this.events[i].start);
+         fecha.setHours(fecha.getHours()+Number(inicio.substring(2,3)));
+         console.log(Number(inicio.substring(2,3)));
+         this.prep2[i].start =fecha;
+         
+       
         eventos[i] = {
             id:this.events[i].id,
             start:new Date(this.events[i].start),
@@ -253,7 +275,7 @@ actions: CalendarEventAction[] = [
            // title:this.events[i].hora,
           
             //cantidad: this.events[i].cantidad,
-            color: colors.blue,
+            color: color,
         }
 
       }
@@ -322,11 +344,23 @@ actions: CalendarEventAction[] = [
 
           let now = moment(fechaevento).format('DD/MM/YYYY');
 
+          var inicio =  moment(fechaevento).tz('America/Santiago').format('Z');
+       
+          var fechita = new Date(fechaevento);
+            fechita.setHours(fechita.getHours()+Number(inicio.substring(2,3)));
+          console.log(Number(inicio.substring(2,3)));
+          // console.log(fechaevento);
+          // let now =  moment(fechaevento).tz('America/Scoresbysund').format('DD/MM/YYYY');  // 4am PST
+          // console.log(nuevo)
+ 
+          
 
           var fechaexplode = fechaevento.substring(0,10);
-          var horaexplode = fechaevento.substring(11,16);
+          var horaexplode = String(fechita).substring(15,21);
+          console.log(fechita);
           var fechacute = now + ', ' + horaexplode;
           this.observacioncalendario = observacion;
+          var pdfnameid = datoeventos._id;
 
       this.modalData = { event, action, maxpersonas, codigo, estado, datouser, lugar, fechaevento, responsable, telfResponsable, descripcion,fechacute, recursos, asistenciaAlcalde, asistenciaCorrecta, observacion};
       console.log("Desplegar evento====>",this.modalData);

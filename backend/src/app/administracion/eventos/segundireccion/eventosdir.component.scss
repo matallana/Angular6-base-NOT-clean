@@ -1,4 +1,36 @@
-.form-control:disabled{
+:host{
+    /deep/ {
+    
+        .cal-header{
+            color: white;
+            background: #00478f;
+        }
+        .cal-header:hover{
+            color: white;
+            background: #00478f!important ;
+        }
+        .cal-cell:hover{
+    
+            background: rgba(0, 160, 133, 0.21)!important   ;
+        }
+
+        table{
+            thead{
+                tr{
+                    border-color: #00478f;
+                    color:white;
+                    background: #00478f!important ;
+                    th{
+                        text-align: center;
+                        border: 1px solid #00478f;
+                    }
+                }
+            }
+        }
+    }
+    }
+
+    .form-control:disabled{
     background-color:white;
 }
 
@@ -49,12 +81,3 @@
         }
     }
     }
-
-    agm-map {
-        height: 200px;
-      }
-      
-      .autocomplete-container {
-        padding: 1rem 0 1rem 0;
-        width: 50%;
-      }

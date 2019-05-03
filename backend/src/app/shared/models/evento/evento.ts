@@ -10,6 +10,7 @@ export class Eventos{
         public _id: String,
        // public fechaCreacion: String,
        // public codigo: String,
+       public titulo: String,
         public fechaevento: String,
         public descripcion: String,
         public maxpersonas: String,
@@ -26,6 +27,9 @@ export class Eventos{
         public contextoMinuta: String,
         public descripcionminuta: String,
         public objetivosMinuta: String,
+        // public ubicacionformateada: String,
+        public latitudgoogle: String,
+        public longitudgoogle: String,
 
 
 

@@ -1,18 +1,24 @@
-import { OnInit, Input } from '@angular/core';
+import { Component,Input,TemplateRef,ChangeDetectionStrategy,  OnInit, ViewChild, ElementRef,NgZone, ViewEncapsulation } from '@angular/core';
 
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef
-} from '@angular/core';
 
+
+import {Title} from '@angular/platform-browser';
+import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
+import { MapsAPILoader } from '@agm/core';
+ import { } from 'googlemaps';
+ 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import {EventoService} from '../../../shared/services/evento/evento.service'
 import * as alertFunction from '../../../shared/data/sweet-alerts';
 import * as moment from 'moment';
+
+
+
 import 'moment/locale/es-us';
+import 'moment-timezone';
+
+
 
 
 
@@ -27,6 +33,8 @@ import {
   addHours
 } from 'date-fns';
 import { Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
@@ -41,7 +49,7 @@ const colors: any = {
     secondary: '#FAE3E3'
   },
   blue: {
-    primary: '#f0c300',
+    primary: '#7dbb00',
     secondary: '#D1E8FF'
   },
   yellow: {
@@ -57,12 +65,16 @@ registerLocaleData(localeEs);
   selector: 'app-eventos-pendientes',
   templateUrl: './eventos.pendientes.component.html',
   styleUrls: ['./eventos.pendientes.component.scss'],
-  providers: [EventoService]
+  providers: [EventoService],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class EventosPendientesComponent implements OnInit {
 
-  constructor(public modal: NgbModal,    public _eventoService: EventoService  ) {}
+  constructor(private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private _http: HttpClient,
+    public modal: NgbModal,    public _eventoService: EventoService  ) {}
 
   public prep;
   public prep2;
@@ -74,6 +86,16 @@ export class EventosPendientesComponent implements OnInit {
   public estado2:any;
   public observacioncalendario:any;
   public pdfname:any;
+  public zoom: number;
+  public latitude: number;
+  public longitude: number;
+  public mapapersonalizado = {
+    url: require('assets/img/panel/icon_puntero_lagranja-03.svg'), 
+    scaledSize: {
+      height: 80,
+      width: 45,
+    }
+  };
 
 
   ngOnInit() {
@@ -247,18 +269,26 @@ export class EventosPendientesComponent implements OnInit {
       console.log("Data agregada======>",data);
       var eventos:CalendarEvent[] = [];
       for(let i = 0; i<this.events.length;i++){
-        this.events[i].end =new Date(data[i].start); 
+        this.events[i].end =new Date(data[i].end);
+
+        var inicio =  moment(this.events[i].start).tz('America/Santiago').format('Z');
+        
+        var fecha = new Date(this.events[i].start);
+        fecha.setHours(fecha.getHours()+Number(inicio.substring(2,3)));
+        console.log(Number(inicio.substring(2,3)));
+        this.prep2[i].start =fecha;
+
         eventos[i] = {
             id:this.events[i].id,
-            start:new Date(this.events[i].start),
-            end:new Date(this.events[i].start),
+            start:fecha,
+            end:fecha,
             actions: this.actions,
             title:this.events[i].title,
             
            // title:this.events[i].hora,
           
             //cantidad: this.events[i].cantidad,
-            color: colors.blue,
+            color: colors.yellow,
         }
 
       }
@@ -284,8 +314,11 @@ export class EventosPendientesComponent implements OnInit {
     this.refresh.next();
   }
 
+  
+
   handleEvent(action: string, event: CalendarEvent): void {
-    // console.log("Event====>",event);
+    console.log("Event====>",event);
+    
     this._eventoService.getEventosByid(event.id).subscribe(data => {
       console.log("DATA para desplegar",data)
 
@@ -296,6 +329,9 @@ export class EventosPendientesComponent implements OnInit {
           var codigo  = datoeventos.codigo;
           this.hola = datoeventos.cantidad;
           this.estado = datoeventos.estado;
+          this.latitude = Number(datoeventos.latitudgoogle);
+          this.longitude = Number(datoeventos.longitudgoogle);
+          this.zoom = 15;
 
           var datouser = datoeventos.user.nick;
           var lugar =datoeventos.lugar;
@@ -319,11 +355,23 @@ export class EventosPendientesComponent implements OnInit {
 
           let now = moment(fechaevento).format('DD/MM/YYYY');
 
+          var inicio =  moment(fechaevento).tz('America/Santiago').format('Z');
+       
+          var fechita = new Date(fechaevento);
+            fechita.setHours(fechita.getHours()+Number(inicio.substring(2,3)));
+          console.log(Number(inicio.substring(2,3)));
+          // console.log(fechaevento);
+          // let now =  moment(fechaevento).tz('America/Scoresbysund').format('DD/MM/YYYY');  // 4am PST
+          // console.log(nuevo)
+ 
+          
 
           var fechaexplode = fechaevento.substring(0,10);
-          var horaexplode = fechaevento.substring(11,16);
+          var horaexplode = String(fechita).substring(15,21);
+          console.log(fechita);
           var fechacute = now + ', ' + horaexplode;
           this.observacioncalendario = observacion;
+          var pdfnameid = datoeventos._id;
 
           
 

@@ -21,8 +21,103 @@
  -->            <form class="form form-horizontal"  #registerForm="ngForm" autocomplete="off" novalidate>
               
               <div class="form-body">
+
+
+                <!-- <button type="submit" class="btn btn-raised btn-primary" (click)="minievento()" >
+
+                  <i class="fa fa-check-square-o"></i> probar
+      
+                </button>  -->
+
+                   
+                <!-- [formControl]="searchControl" -->
+
+                <!-- <div class="container">
+                  <h1>Gm</h1>
+                  <div class="form-group">
+                    <input placeholder="search for location" id="lugar"    name="lugar"  [(ngModel)]="evento.lugar"  autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control border-primary" #search >
+                  </div> -->
+                  <!-- <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                  </agm-map>
+                </div>
+
+                <button type="submit" class="btn btn-raised btn-primary" (click)="minievento()" >
+
+                  <i class="fa fa-check-square-o"></i> probar
+      
+                </button> -->
+
+
+                <!-- <div class="container" fxLayout="column" fxLayoutAlign="center">
+
+                  <div fxFlex>
+                    <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                    </agm-map>
+                  </div>
+              
+                  <div fxFlex fxFlexAlign="center"
+                       class="autocomplete-container"
+                       [style.xs]="{'min-width.%': 100}"
+                       [style.sm]="{'width.%': 70}">
+                    <mat-google-maps-autocomplete (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                                                  (onLocationSelected)="onLocationSelected($event)">
+                    </mat-google-maps-autocomplete>
+                  </div>
+              
+                </div> -->
+                    <!-- <mat-error *ngIf="matGoogleMapsAutocomplete.addressSearchControl.hasError('required')">
+                      {{config.requiredErrorText}}
+                     </mat-error>
+                     <mat-error *ngIf="matGoogleMapsAutocomplete.addressSearchControl.hasError('validateAddress')">
+                       {{config.invalidErrorText}}
+                      </mat-error> -->
+
+
+                    <!-- <div fxFlex fxFlexAlign="center"
+                         class="autocomplete-container"
+                         [ngStyle.xs]="{'min-width.%': 100}"
+                         [ngStyle.sm]="{'width.%': 70}">
+                      <mat-google-maps-autocomplete [appearance]="appearance.OUTLINE"
+                                                      (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                                                      (onLocationSelected)="onLocationSelected($event)">
+                      </mat-google-maps-autocomplete>
+                    </div> -->
+
+
+
+                    <!-- <input type="text" id="lugar" class="form-control border-primary"  name="lugar" placeholder="Las pipililas  #342"  [(ngModel)]="evento.lugar" #lugar="ngModel" minlength="2" maxlength="25" required > -->
+
+
+
                 <h4 class="form-section"><i class="ft-user-plus"></i> Datos de Evento Nuevo</h4>
                 <br>
+                <!-- Primera Tabla-->
+                <div class="row">
+                  <!-- Lugar -->
+                      <div class="col-md-5">
+                        <div class="form-group row">
+                          <label class="label-control col-md-3"  for="lugar">Titulo de Evento: </label>
+                            <div class="col-md-9">
+                                <div >
+                                    <input placeholder="Titulo" id="titulo"    name="titulo"  [(ngModel)]="evento.titulo"  autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control border-primary" #titulo >
+                                </div>
+                                   
+                              <span class="form-text bg-danger text-highlight white" *ngIf="titulo.errors?.required && titulo.touched">Campo es requerido </span>
+                              <!-- <span class="form-text bg-danger text-highlight white" *ngIf="search.errors?.minlength">Minimino 3 caracteres</span>
+                               <span class="form-text bg-danger text-highlight white" *ngIf="search.errors?.maxlength">Maximo de caracteres 25</span> -->
+                            </div>
+                            
+                        </div>
+                        </div>
+
+
+                     
+
+                                                                                                            
+                      </div>
+
                   <!-- Primera Tabla-->
                     <div class="row">
                   <!-- Lugar -->
@@ -30,14 +125,38 @@
                         <div class="form-group row">
                           <label class="label-control col-md-3"  for="lugar">Lugar: </label>
                             <div class="col-md-9">
-                              <input type="text" id="lugar" class="form-control border-primary"  name="lugar" placeholder="Las pipililas  #342"  [(ngModel)]="evento.lugar" #lugar="ngModel" minlength="2" maxlength="25" required >
-                              <span class="form-text bg-danger text-highlight white" *ngIf="lugar.errors?.required && lugar.touched">Campo es requerido </span>
-                              <span class="form-text bg-danger text-highlight white" *ngIf="lugar.errors?.minlength">Minimino 3 caracteres</span>
-                               <span class="form-text bg-danger text-highlight white" *ngIf="lugar.errors?.maxlength">Maximo de caracteres 25</span>
+                                <div >
+                                    <input placeholder="Busca un Lugar" id="lugar"    name="lugar"  [(ngModel)]="evento.lugar"  autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control border-primary" #search >
+                                  </div>
+                                   
+                              <span class="form-text bg-danger text-highlight white" *ngIf="search.errors?.required && search.touched">Campo es requerido </span>
+                              <!-- <span class="form-text bg-danger text-highlight white" *ngIf="search.errors?.minlength">Minimino 3 caracteres</span>
+                               <span class="form-text bg-danger text-highlight white" *ngIf="search.errors?.maxlength">Maximo de caracteres 25</span> -->
                             </div>
+                            
                         </div>
                         </div>
+
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                            <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                                <agm-marker 
+                                [latitude]="latitude" 
+                                [longitude]="longitude" 
+                               
+                                [iconUrl]="mapapersonalizado" ></agm-marker>
+                              </agm-map>  
+                            </div>
+                          </div>
+
+                                                                                                            
                       </div>
+                      <!-- [iconAnchorX]="10"
+                      [iconAnchorY]="10"
+                      [iconHeight]="20"
+                      [iconWidth]="20" -->
+
 
                     <!-- apellido -->
                     <div class="row">

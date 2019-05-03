@@ -96,6 +96,9 @@ export function typeErrorEvento(){
 export function typeErrorEvento2(){
     swal("Info!", "El Evento ya se encuentra creado. Debe ingresar uno nuevo!", "info" );
 }
+export function typeErrorEventoLugar(){
+    swal("Error!", "Debe de seleccionar un lugar existente en la lista!", "error" );
+}
 //Profesion
 export function typeErrorProfesion() {
     swal("Error!", "La Profesion no se ha podido Registrar! \n o ya se encuenta registrada", "error");

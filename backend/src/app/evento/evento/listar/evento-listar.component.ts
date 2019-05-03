@@ -29,6 +29,7 @@ import { HoraService } from '../../../shared/services/hora/hora.services';
 import { OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import { CustomEditorComponent } from './custom-editor.component';
 import { CustomEditorCheckComponent } from './custom-editorcheck.component';
+import { CustomEditorUbicacionComponent } from './custom-editorubicacion.component';
 
 
 import * as alertFunction from '../../../shared/data/sweet-alerts';
@@ -59,7 +60,9 @@ export class SmartTableEventoListarComponent  {
     public source: LocalDataSource; 
     public empresaAsig;
     public userActive:string;
+    public key = 'AIzaSyCS_vo9wZHc3BhI4YtJfAIuNrtwa2xwzZU';
     public backup:any = {};
+    public mantenerfechaluegodeerror:any;
     @Input('fechafinal') fechanueva: any;
 
     filterSource: LocalDataSource;
@@ -105,8 +108,13 @@ export class SmartTableEventoListarComponent  {
         columns: {
           lugar: {
             title: 'Lugar',
-            type: 'string',
             editable:true,
+            required: true,
+            editor: {
+              type: 'custom',
+              component: CustomEditorUbicacionComponent,
+              },
+          
           },
           descripcion: {
             title: 'Descripcion',
@@ -213,7 +221,7 @@ export class SmartTableEventoListarComponent  {
      json = response;
      this.backup = json;
 
-     console.log(json[0].asistenciaAlcalde);
+    //  console.log(json[0].asistenciaAlcalde);
 
 
       
@@ -237,6 +245,7 @@ export class SmartTableEventoListarComponent  {
      
   
         console.log(json);
+        console.log('hola hola');
 
      this.source = new LocalDataSource(json);
 
@@ -248,9 +257,11 @@ export class SmartTableEventoListarComponent  {
 
  }
  editar(evento){
+  console.log(this.mantenerfechaluegodeerror);
 
 /* console.log(new Date(evento.fechaevento.toString()).toISOString())
  */
+console.log(evento);
 let now = moment(evento.newData.fechaevento).format('YYYY-MM-DDTHH:mm:ss.SSS');
 
 
@@ -263,11 +274,15 @@ if(now != 'Invalid date'){
   console.log(fechadefixed);
   console.log(horadefixed);
   evento.data.fechaevento = fechadefixed+'T'+horadefixed+'.000Z';
+  console.log(evento.data.fechaevento);
 
   evento.newData.fechaevento = evento.data.fechaevento;
+  if(this.mantenerfechaluegodeerror != undefined){
+    evento.newData.fechaevento = this.mantenerfechaluegodeerror;
+  }
 
 }
-
+console.log(evento);
 if(evento.newData.asistenciaAlcalde == true){
   evento.newData.asistenciaAlcalde = true;
 }else if(evento.newData.asistenciaAlcalde == false){
@@ -278,14 +293,39 @@ if(evento.newData.asistenciaAlcalde == true){
 
 console.log(evento.newData);
 evento.newData.estado = "pendiente";
+if(evento.newData.lugar == ''){
+    evento.newData.lugar = evento.data.lugar;
+}
 
-this._eventoService.updateEvent(evento.newData).subscribe(response =>{
-  this.EventSolicitado();
 
-  this.traereventospendientes()
+let url = "https://maps.googleapis.com/maps/api/geocode/json?address="+evento.newData.lugar+"&key="+this.key;
+  this._http.get(url).subscribe((data)=>{
+    console.log(data);
+    console.log(data['status']);
+  // console.log(data['results'][0].geometry.location);
+  // this.evento.lugar = data['results'][0].formatted_address;
+  if( data === undefined || data['status'] == 'INVALID_REQUEST' || data['status'] == 'ZERO_RESULTS'){
+   this.mantenerfechaluegodeerror = evento.data.fechaevento;
+    this.errormapa();
+    console.log(this.mantenerfechaluegodeerror);
+  }else{
+
+    evento.newData.latitudgoogle =  data['results'][0].geometry.location.lat;
+    evento.newData.longitudgoogle = data['results'][0].geometry.location.lng;
   
-  console.log(response);
-})
+    this._eventoService.updateEvent(evento.newData).subscribe(response =>{
+      this.EventSolicitado();
+    
+      this.traereventospendientes()
+      
+      console.log(response);
+      })
+
+  }
+ 
+  
+  });
+
 
  }
 
@@ -324,6 +364,11 @@ typeErr(){
 
 EventSolicitado(){
   alertFunction.EventSolicitado();
+
+}
+
+errormapa(){
+  alertFunction.typeErrorEventoLugar();
 
 }
 

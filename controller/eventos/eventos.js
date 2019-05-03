@@ -299,6 +299,24 @@ function getEventosbyusertotal(req,res){
     });
 }
 
+function getEventosallbydir(req,res){
+    var UserId = req.params.id;
+    Eventos.find({user: UserId}).exec((err, eventos)=>{
+        if(err){
+            res.status(500).send({message: 'error en la peticion'});
+        }else{
+            if(!eventos){
+                res.status(404).send({message: 'No existe'});
+            }else{
+                Eventos.populate(eventos, {path:'user'},(err, usuarios)=>{
+
+                res.status(200).send(usuarios);
+                });
+            }
+        }
+    });
+}
+
 function getEventosbyid(req,res){
     var eventId = req.params.id;
     Eventos.find({_id: eventId, estado: 'pendiente'}).exec((err, evento)=>{

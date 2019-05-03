@@ -110,6 +110,13 @@ getCalendarioPendientes():Observable<any>{
   return this._http.get<Eventos[]>(this.url+'getCalendarioPendientes/'+  this.getIdentity()._id, {headers:headers});
 }
 
+getCalendariobyunidadtotales():Observable<any>{
+
+  let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-ControlAllow-Origen', '*').set('Authorization', this.getToken());
+
+  return this._http.get<Eventos[]>(this.url+'getCalendarioallbyunidad/'+  this.getIdentity().nick, {headers:headers});
+}
+
     // getEmpresa(){
     //     let headers = new Headers({
     //         'Content-Type':'application/json',
@@ -191,6 +198,15 @@ getEventosByidaprobado(id):Observable<Eventos[]>{
     .set('Authorization', this.getToken());
         return this._http.get<Eventos[]>(this.url+'get-eventosbyidall/'+id, {headers:headers}).catch(this.errorHandler);
 }
+
+ getAllEventosbyDir(id):Observable<Eventos[]>{
+  let headers = new HttpHeaders().set('Content-Type', 'application/json')
+  .set('Access-ControlAllow-Origen', '*')
+  .set('Access-Control-Allow-Methods', 'GET')
+  .set('Access-Control-Allow-Headers', 'Origin, X-Requested With, Content-Type, Accept')
+  .set('Authorization', this.getToken());
+      return this._http.get<Eventos[]>(this.url+'get-eventosbyidall/'+id, {headers:headers}).catch(this.errorHandler);
+ }
 
 
   

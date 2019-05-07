@@ -21,6 +21,9 @@ import * as jsPDF from 'jspdf'
 import html2canvas from 'html2canvas';  
 import * as moment from 'moment';
 import 'moment/locale/es-us';
+declare var FB: any;
+
+
 
 
 // import {} from '@types/googlemaps';
@@ -104,6 +107,7 @@ export class EventoComponent implements OnInit {
   public lnggoogle:any;
   public clickeado:any = false;
   public comprobar:any;
+  public access_token = 'EAAZAz2uvsi5IBAAZCrRd1khj60ieENOHCGhOKNx5BXEWt7sEd7UkyY3Iyw2mYA97NKepoh25ZCZC5wwFxcpQMUYrb0ZBlTw8b1hipY5imfVgvC9dWNthSZBUYrBZBZCpuk7rjL0LGTfPvAsJMzC6F2gqpqfKm5JmgBkdopXg1KOtd1UcRoUe0CFZCHSP7W0cFydqHZB4hdVFEuHb9qc3Gc99pZA';
 
     public mapapersonalizado = {
       url: require('assets/img/panel/icon_puntero_lagranja-03.svg'), 
@@ -195,7 +199,7 @@ export class EventoComponent implements OnInit {
 
     // this.setCurrentPosition();
 
-
+      this.fbtest();
 
 
 
@@ -225,6 +229,69 @@ export class EventoComponent implements OnInit {
       
 
 
+    }
+
+    submitLogin1(){
+      console.log("submit login to facebook");
+      // FB.login();
+      FB.login((response)=>
+          {
+            console.log('submitLogin',response);
+            if (response.authResponse)
+            {
+              console.log(response);
+              //login success
+              //login success code here
+              //redirect to home page
+             }
+             else
+             {
+             console.log('User login failed');
+           }
+        });
+
+    }
+    submitLogin2(){
+      console.log("submit login to facebook");
+      // FB.login();
+      FB.api(
+        
+        '/me/feed', 'GET',
+        { access_token : this.access_token},
+        function(response) {
+          console.log(response);
+            // Insert your code here
+        }
+      );
+
+    }
+
+
+
+
+
+
+    public fbtest(){
+      (window as any).fbAsyncInit = function() {
+        FB.init({
+          appId      : '1816233958476690',
+          secret     : '7a8ad1ac9bfd140bca4b5d5ee7d40a31',
+          OAuth : 'EAAZAz2uvsi5IBAEminZAUzWQ8mTumZBN8SJZAdpa4hgfsjNYq4tWgXWEAlJuadIsewWZC5Kwzb1LS4uoIsd7mI6zi74MLVtXZChzJSIZBa931WlkzwLe3zmo843ZBvM475mwPygxKmK0FEauSUfJHP6Y5mkWhO5RZC5hnre7irKiQa8639n2Fu9fb',
+          access_token : 'EAAZAz2uvsi5IBAEminZAUzWQ8mTumZBN8SJZAdpa4hgfsjNYq4tWgXWEAlJuadIsewWZC5Kwzb1LS4uoIsd7mI6zi74MLVtXZChzJSIZBa931WlkzwLe3zmo843ZBvM475mwPygxKmK0FEauSUfJHP6Y5mkWhO5RZC5hnre7irKiQa8639n2Fu9fb',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v3.1'
+        });
+        FB.AppEvents.logPageView();
+      };
+  
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
     }
 
     

@@ -9,6 +9,7 @@ saveEvento (validacion si existen eventos anteriormente registrados)
 'use strict'
 
 var moment= require('moment');
+var momentz = require('moment-timezone');
 
 var User = require('../../models/usuario/user');
 var Stock = require('../../models/tickets/stock');
@@ -46,10 +47,13 @@ function saveEventos(req, res){
         eventos.fechaCreacion = moment().format('LLL');
         eventos.is_mod = moment().add(-4 ,'hours').format('LLL');
         eventos.is_active = params.is_active;
+        var a = momentz(params.fechaevento).tz('America/Santiago').format('Z');
+
         eventos.fechaevento = params.fechaevento;
         eventos.cantidad = params.cantidad;
         eventos.valor = params.valor;
         eventos.lugar = params.lugar;
+        eventos.titulo = params.titulo;
 /*         eventos.fechaevento = 'params.fechaevento';
  */     eventos.codigo = crearcodigo();
         eventos.hora = 'params.hora';
@@ -64,9 +68,12 @@ function saveEventos(req, res){
         eventos.user = params.user;
         eventos.estado = 'pendiente';
         eventos.observacion = '';
-        eventos.contextoMinuta = params.contexto;
+        eventos.contextoMinuta = params.contextoMinuta;
         eventos.descripcionMinuta = params.descripcionminuta;
-        eventos.objetivosMinuta = params.objetivos;
+        eventos.objetivosMinuta = params.objetivosMinuta;
+        // eventos.ubicacionformateada = params.ubicacionformateada;
+        eventos.latitudgoogle = params.latitudgoogle;
+        eventos.longitudgoogle = params.longitudgoogle;
 
 
 
@@ -78,8 +85,8 @@ function saveEventos(req, res){
                 return res.status(200).send({message: 'ya se encuentra registrada la fecha del evento',
                                             eventoFallido:eventos});     
             }else{ */
-                console.log(eventos);
-                console.log('hola');
+                // console.log(eventos);
+                // console.log('hola');
                 eventos.save((err, eventosStored)=>{
                     console.log(eventosStored)
                     if(err) return res.status(500).send({err});
@@ -299,24 +306,6 @@ function getEventosbyusertotal(req,res){
     });
 }
 
-function getEventosallbydir(req,res){
-    var UserId = req.params.id;
-    Eventos.find({user: UserId}).exec((err, eventos)=>{
-        if(err){
-            res.status(500).send({message: 'error en la peticion'});
-        }else{
-            if(!eventos){
-                res.status(404).send({message: 'No existe'});
-            }else{
-                Eventos.populate(eventos, {path:'user'},(err, usuarios)=>{
-
-                res.status(200).send(usuarios);
-                });
-            }
-        }
-    });
-}
-
 function getEventosbyid(req,res){
     var eventId = req.params.id;
     Eventos.find({_id: eventId, estado: 'pendiente'}).exec((err, evento)=>{
@@ -421,12 +410,12 @@ function getCalendario(req,res){
                         if(!eventoimpr){
                             res.status(404).send({message: 'No existe'});
                         }else{ */
-                            console.log(benef);
+                            // console.log(benef);
                             var idempresa = benef.empresa;
-                            console.log(idempresa);
+                            // console.log(idempresa);
 
                             Eventos.find({empresa: idempresa }).exec((err, events)=>{
-                                console.log(events);
+                                // console.log(events);
 
                                 Empresa.populate(events, {path:'empresa'},(err, empresa)=>{
                                     var calendarioTodos = [];
@@ -456,7 +445,7 @@ function getCalendario(req,res){
                                              end:events[i].fechaevento,
                                              start: events[i].fechaevento
                                              }
-                                             console.log(calendarioTodos[j]);
+                                            //  console.log(calendarioTodos[j]);
 
                                              j++;
                                          }
@@ -494,12 +483,12 @@ function getCalendario(req,res){
                                     if(!eventoimpr){
                                         res.status(404).send({message: 'No existe'});
                                     }else{ */
-                                        console.log(benef);
+                                        // console.log(benef);
                                         var idempresa = benef.empresa;
-                                        console.log(idempresa);
+                                        // console.log(idempresa);
             
                                         Eventos.find({empresa: idempresa, estado: 'aprobado' }).exec((err, events)=>{
-                                            console.log(events);
+                                            // console.log(events);
             
                                             Empresa.populate(events, {path:'empresa'},(err, empresa)=>{
                                                 var calendarioTodos = [];
@@ -534,7 +523,7 @@ function getCalendario(req,res){
                                                         end:events[i].fechaevento,
                                                         start: events[i].fechaevento
                                                          }
-                                                         console.log(calendarioTodos[j]);
+                                                        //  console.log(calendarioTodos[j]);
             
                                                          j++;
                                                      }
@@ -556,6 +545,7 @@ function getCalendario(req,res){
                         }
                         function getCalendarioPendientes(req,res){
                             var userId = req.params.id;
+                            // console.log(req.params.id);
                             User.findOne({_id : userId}).exec((err, benef)=>{
                                 if(err){
                                     res.status(500).send({message: 'error en la peticion'});
@@ -570,12 +560,12 @@ function getCalendario(req,res){
                                                 if(!eventoimpr){
                                                     res.status(404).send({message: 'No existe'});
                                                 }else{ */
-                                                    console.log(benef);
+                                                    // console.log(benef);
                                                     var idempresa = benef.empresa;
-                                                    console.log(idempresa);
+                                                    // console.log(idempresa);
                         
                                                     Eventos.find({empresa: idempresa, estado: 'pendiente' }).exec((err, events)=>{
-                                                        console.log(events);
+                                                        // console.log(events);
                         
                                                         Empresa.populate(events, {path:'empresa'},(err, empresa)=>{
                                                             var calendarioTodos = [];
@@ -610,7 +600,7 @@ function getCalendario(req,res){
                                                                      end:events[i].fechaevento,
                                                                      start: events[i].fechaevento
                                                                      }
-                                                                     console.log(calendarioTodos[j]);
+                                                                    //  console.log(calendarioTodos[j]);
                         
                                                                      j++;
                                                                  }
@@ -633,7 +623,7 @@ function getCalendario(req,res){
 
 
                                     function uploadMinuta(req, res){
-                                        console.log('alfinnn');
+                                        // console.log('alfinnn');
 
                                         var body = req.body;
                                         var pdf = body.base64pdf;
@@ -682,6 +672,123 @@ function getCalendario(req,res){
 
 } */
 
+function CalendarioAprobadoMobile(req,res){
+    var userId = req.params.id;
+    User.findOne({_id : userId}).exec((err, benef)=>{
+        if(err){
+            res.status(500).send({message: 'error en la peticion'});
+        }else{
+            if(!benef){
+                res.status(404).send({message: 'No existe1'});
+            }else{
+                var idempresa = benef.empresa;
+                Eventos.find({empresa: idempresa, estado: 'aprobado' }).exec((err, events)=>{
+                    if(err){
+                        res.status(500).send({message: 'error en la peticion'});
+                    }else{
+                        if(!events[0]){
+                            res.status(404).send({message: 'No hay eventos'});
+                        }else{
+                            Empresa.populate(events, {path:'empresa'},(err, empresa)=>{
+                                var calendarioTodos = [];
+                                var j = 0;
+                                    for(let i = 0; i<events.length;i++){
+                                        if(events[i].empresa){
+                                            calendarioTodos[j] ={                                            
+                                            id:events[i]._id,
+                                            title:events[i].titulo,
+                                            cantidad:events[i].maxpersonas,
+                                            responsable:events[i].responsable,
+                                            telfResponsable:events[i].telfResponsable,
+                                            descripcion:events[i].descripcion,
+                                            asistenciaAlcalde:events[i].asistenciaAlcalde,
+                                            observacion:events[i].observacion,
+                                            end:events[i].fechaevento,
+                                            start: events[i].fechaevento,
+                                            lugar:events[i].lugar,
+                                            latitud:events[i].latitudgoogle,
+                                            longitud:events[i].longitudgoogle
+                                            }
+                                            j++;
+                                        }
+                            
+                                    }
+                                    res.status(200).send({calendario:calendarioTodos});
+                            
+                                }); 
+                            }
+                        }
+                                               
+                    });
+                
+                }
+            }
+        });
+    }
+
+    // function getCalendarioPendientes(req,res){
+    //     var userId = req.params.id;
+    //     var newUserId = 'ObjectId("'+userId+'")';
+
+        
+    //     User.findOne({_id : userId}).exec((err, benef)=>{
+    //         if(err){
+    //             res.status(500).send({message: 'error en la peticion'});
+    //         }else{
+    //             if(!benef){
+    //                 res.status(404).send({message: 'No existe1'});
+    //             }else{
+    //                             var idempresa = benef.empresa;
+    //                             var unidad = 'ObjectId("'+userId+'")';
+    //                             Eventos.find({empresa: idempresa, user: userId }).exec((err, events)=>{
+    //                                 console.log(events);
+    //                                 Empresa.populate(events, {path:'empresa'},(err, empresa)=>{
+    //                                     var calendarioTodos = [];
+    //                                     var j = 0;
+
+    
+    //                                        for(let i = 0; i<events.length;i++){
+                                        
+    //                                           if(events[i].empresa){
+                                              
+    //                                             calendarioTodos[j] ={
+    
+                                                 
+    //                                              id:events[i]._id,
+    //                                              title:events[i].lugar,
+    //                                              estado:events[i].estado,
+    //                                              cantidad:events[i].maxpersonas,
+    //                                              codigo:events[i].codigo,
+    //                                              responsable:events[i].responsable,
+    //                                              telfResponsable:events[i].telfResponsable,
+    //                                              descripcion:events[i].descripcion,
+    //                                              recursos:events[i].recursos,
+    //                                              asistenciaAlcalde:events[i].asistenciaAlcalde,
+    //                                              observacion:events[i].observacion,
+    //                                              end:events[i].fechaevento,
+    //                                              start: events[i].fechaevento
+    //                                              }
+                                        
+    
+    //                                              j++;
+    //                                          }
+    
+    //                                        }
+    //                                        res.status(200).send(calendarioTodos);
+    
+                                  
+    //                                    });
+    
+                                  
+    
+    
+    //                             })
+                          
+    //                         }
+    //                     }
+    //                 });
+    //             }
+
 
 module.exports = {
     
@@ -701,5 +808,8 @@ module.exports = {
     getEventosbyidall,
     getEventosbyusertotal,
     uploadMinuta,
-    getMinutaFile
+    getMinutaFile,
+    CalendarioAprobadoMobile,
+    getCalendarioPendientes
 };
+

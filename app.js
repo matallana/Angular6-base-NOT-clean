@@ -5,7 +5,7 @@
 *Información: pagina principal de arranque (APIS). creacion de cors y rutas ademas se agregan los middlewares correspondientes. En esta seccion se modifica para pasar a prodoccion.
 */
 'use strict'
-
+var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -81,7 +81,8 @@ app.use('/api', departamentos_routes);
 
 
 //HEADERS
-app.use('/', express.static('backend/',{ redirect:true }));
+//app.use('/', express.static('backend/',{ redirect:true }));
+app.use(express.static(path.join(__dirname, 'dist')));
 app.use((req,res,next)=>{
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');

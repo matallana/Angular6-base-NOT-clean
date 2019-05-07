@@ -101,8 +101,20 @@ var EventoSchema = Schema({
     },
     objetivosMinuta:{
         type:String,
+    },
+    // ubicacionformateada:{
+    //     type: String,
+    // },
+    latitudgoogle: {
+        type: String,
+    },
+    longitudgoogle: {
+        type: String,
+    },
+    titulo: {
+        type: String,
     }
- 
+  
 
       
 

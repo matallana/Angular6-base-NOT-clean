@@ -44,6 +44,8 @@ api.put('/update-reformular/:id', md_auth.ensureAuth, EventController.reformular
 api.get('/getCalendario/:id', EventController.getCalendario);
 api.get('/getCalendarioAprobados/:id', EventController.getCalendarioAprobados);
 api.get('/getCalendarioPendientes/:id', EventController.getCalendarioPendientes);
+api.get('/getCalendarioallbyunidad/:id', EventController.getCalendarioPendientes);
+api.get('/CalendarioAprobadoMobile/:id', EventController.CalendarioAprobadoMobile);
 
 
 

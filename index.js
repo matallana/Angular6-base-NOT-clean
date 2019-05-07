@@ -9,13 +9,13 @@
 var mongoose = require('mongoose');
 var app = require('./app');
 
-//const port = process.env.PORT || 3803;
-const port = process.env.PORT || 3789;
+const port = process.env.PORT || 3803;
+//const port = process.env.PORT || 3789;
 
 mongoose.Promise = global.Promise;
 
 
-mongoose.connect('mongodb://localhost:27017/Municipalidad', { useNewUrlParser : true } ).then(()=>{
+mongoose.connect('mongodb://localhost:27017/lagranja_agendamunicipal', { useNewUrlParser : true } ).then(()=>{
     console.log('La conexion ha sido realizada correctamente');
     app.listen(port, () =>{
         console.log("Servidor no se encuentra funcionando en puerto: "+port)

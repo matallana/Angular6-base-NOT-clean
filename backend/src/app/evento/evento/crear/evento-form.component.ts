@@ -107,7 +107,7 @@ export class EventoComponent implements OnInit {
   public lnggoogle:any;
   public clickeado:any = false;
   public comprobar:any;
-  public access_token = 'EAAZAz2uvsi5IBAAZCrRd1khj60ieENOHCGhOKNx5BXEWt7sEd7UkyY3Iyw2mYA97NKepoh25ZCZC5wwFxcpQMUYrb0ZBlTw8b1hipY5imfVgvC9dWNthSZBUYrBZBZCpuk7rjL0LGTfPvAsJMzC6F2gqpqfKm5JmgBkdopXg1KOtd1UcRoUe0CFZCHSP7W0cFydqHZB4hdVFEuHb9qc3Gc99pZA';
+  public access_token = 'EAAhrveKuHAMBANj4o2UAdv0VZBqgQfWON4UTJL7pTmZBZAYO17MQpzKkXGpQCZBsreHHykBi3QTaKWwIjZCGfui1iiCgeEpoEt6HcY1FPzonyHFYcVZCetD3PC4XLYDNg5PGcSA2aaUEpCZCwiq3lvhd7U0ZB4VUodq4CswvAKceWrkypdziHVHm';
 
     public mapapersonalizado = {
       url: require('assets/img/panel/icon_puntero_lagranja-03.svg'), 
@@ -251,19 +251,48 @@ export class EventoComponent implements OnInit {
         });
 
     }
+    
     submitLogin2(){
       console.log("submit login to facebook");
-      // FB.login();
-      FB.api(
-        
-        '/me/feed', 'GET',
-        { access_token : this.access_token},
-        function(response) {
-          console.log(response);
-            // Insert your code here
-        }
-      );
+      var token = this.access_token;
+      var pagina= '478976528820583';
+      var limite= '50';
+      var BusinessBrecha = '641581999324391';
 
+      FB.api(
+        //con esta parte buscamos de brecha las paginas asociadas como propias 
+        '/'+BusinessBrecha+'?fields=owned_pages.limit(100)', 'GET',
+        { access_token : this.access_token},
+        function(responsepages) {
+          console.log(responsepages);
+      FB.api(
+        //use pagina seteado pero deberia ser uno escogido de la lista de la anterior busqueda
+        '/'+pagina+'?fields=feed.limit('+limite+')', 'GET',
+        { access_token : token},
+        function(response) {
+          // console.log(response);
+            // el siguiente foreach recorre el resultado de los post y les inyecta los comentarios a cada uno
+            response.feed.data.forEach(element => {
+              // console.log(element.id);
+              var id:any = String(element.id);
+              var token2:any = token;
+              FB.api(
+                '/'+id+'?fields=comments', 'GET',
+                { access_token : token2 },
+                function(responsecomment) {
+                  element.id = responsecomment;
+
+                }
+              );
+            });
+            console.log(response);
+
+           
+               }
+           );
+    
+         }
+      );
     }
 
 
@@ -276,11 +305,9 @@ export class EventoComponent implements OnInit {
         FB.init({
           appId      : '1816233958476690',
           secret     : '7a8ad1ac9bfd140bca4b5d5ee7d40a31',
-          OAuth : 'EAAZAz2uvsi5IBAEminZAUzWQ8mTumZBN8SJZAdpa4hgfsjNYq4tWgXWEAlJuadIsewWZC5Kwzb1LS4uoIsd7mI6zi74MLVtXZChzJSIZBa931WlkzwLe3zmo843ZBvM475mwPygxKmK0FEauSUfJHP6Y5mkWhO5RZC5hnre7irKiQa8639n2Fu9fb',
-          access_token : 'EAAZAz2uvsi5IBAEminZAUzWQ8mTumZBN8SJZAdpa4hgfsjNYq4tWgXWEAlJuadIsewWZC5Kwzb1LS4uoIsd7mI6zi74MLVtXZChzJSIZBa931WlkzwLe3zmo843ZBvM475mwPygxKmK0FEauSUfJHP6Y5mkWhO5RZC5hnre7irKiQa8639n2Fu9fb',
           cookie     : true,
           xfbml      : true,
-          version    : 'v3.1'
+          version    : 'v3.3'
         });
         FB.AppEvents.logPageView();
       };

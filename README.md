@@ -17,6 +17,13 @@ And in the /backend
 npm install
 ```
 
+To import the database
+use this code in the dbmuni folder (/dbmuni/)
+
+```
+mongorestore --db lagranja_agendamunicipal dump
+```
+
 End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
@@ -26,7 +33,6 @@ to launch the nodejs backend side
 
 ```
 npm start
-
 ```
 
 And in the /backend to launch the angular side

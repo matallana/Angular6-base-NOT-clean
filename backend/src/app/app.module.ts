@@ -97,12 +97,6 @@ import { CustomEditorUbicacionComponent } from './evento/evento/listar/custom-ed
 import { FormsModule } from '@angular/forms';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
-const googleMapsParams = {
-    apiKey: 'AIzaSyCS_vo9wZHc3BhI4YtJfAIuNrtwa2xwzZU',
-    libraries: ['places'],
-    language: 'DE',
-    region: 'DE'
-  };
 
 
 export function createTranslateLoader(http: HttpClient) {

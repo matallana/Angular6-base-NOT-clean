@@ -133,7 +133,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
         AgmCoreModule.forRoot({
             clientId: '<mandatory>',
-            apiKey: "AIzaSyCS_vo9wZHc3BhI4YtJfAIuNrtwa2xwzZU",
+            apiKey: "googlekey",
             libraries: ["geometry","places"]
           }),
         MatGoogleMapsAutocompleteModule.forRoot(),  

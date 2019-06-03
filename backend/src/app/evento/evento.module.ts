@@ -83,12 +83,6 @@ import { CustomEditorCheckComponent } from './evento/listar/custom-editorcheck.c
 /* import { RegisterPageComponent } from '../administracion/register/crear/register-page.component';
  */
 
-const googleMapsParams = {
-    apiKey: 'AIzaSyCS_vo9wZHc3BhI4YtJfAIuNrtwa2xwzZU',
-    libraries: ['places'],
-    language: 'DE',
-    region: 'DE'
-  };
 
 @NgModule({
 
@@ -167,7 +161,7 @@ const googleMapsParams = {
 
         AgmCoreModule.forRoot({
             clientId: '<mandatory>',
-            apiKey: "AIzaSyCS_vo9wZHc3BhI4YtJfAIuNrtwa2xwzZU",
+            apiKey: "googlekey",
             libraries: ["geometry","places"]
           }),
         MatGoogleMapsAutocompleteModule.forRoot(),  

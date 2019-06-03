@@ -141,7 +141,7 @@ export function createTranslateLoader(http: HttpClient) {
               }
         }),
         AgmCoreModule.forRoot({
-            apiKey: "key",
+            apiKey: "googlekey",
             libraries: ["places"]
           }),
         MatGoogleMapsAutocompleteModule,

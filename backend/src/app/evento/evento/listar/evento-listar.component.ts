@@ -60,7 +60,7 @@ export class SmartTableEventoListarComponent  {
     public source: LocalDataSource; 
     public empresaAsig;
     public userActive:string;
-    public key = 'AIzaSyCS_vo9wZHc3BhI4YtJfAIuNrtwa2xwzZU';
+    public key = 'googlekey';
     public backup:any = {};
     public mantenerfechaluegodeerror:any;
     @Input('fechafinal') fechanueva: any;

@@ -76,7 +76,7 @@ export class EventoComponent implements OnInit {
   @ViewChild('f') floatingLabelForm: NgForm;
   @ViewChild('vform') validationForm: FormGroup;
   regularForm: FormGroup;
-  public key = 'AIzaSyCS_vo9wZHc3BhI4YtJfAIuNrtwa2xwzZU';
+  public key = 'googlekey';
   public token;
   public title: string;
   public status: string;

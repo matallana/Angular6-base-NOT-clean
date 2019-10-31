@@ -19,7 +19,7 @@
     "jwt-simple": "^0.5.1",
     "moment": "^2.21.0",
     "moment-timezone": "^0.5.25",
-    "mongoose": "^5.0.11",
+    "mongoose": "^5.7.5",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-pagination": "^1.0.0",
     "nodemailer": "^5.1.1",
